@@ -17,12 +17,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     board.cpp \
+    collectables.cpp \
+    fruit.cpp \
     main.cpp \
-    gamemanager.cpp
+    gamemanager.cpp \
+    powerpellets.cpp \
+    smallpellets.cpp
 
 HEADERS += \
     board.h \
-    gamemanager.h
+    collectables.h \
+    fruit.h \
+    gamemanager.h \
+    powerpellets.h \
+    smallpellets.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
