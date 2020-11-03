@@ -3,6 +3,10 @@
 GameManager::GameManager(QWidget *parent)
     : QMainWindow(parent)
 {
+
+
+
+
 }
 
 GameManager::~GameManager()
