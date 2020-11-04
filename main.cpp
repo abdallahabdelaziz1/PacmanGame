@@ -16,15 +16,16 @@ int main(int argc, char *argv[])
     //2-)let board be a view by letting board inhirit from QgrpahicsView and then changing the board scene in the board class and showing the board object in main.
     //3-)I forgot the third method lol
     //I will use the second method becuase I think the first is useless.
-    board boardInstance;
-    boardInstance.show();
+    //board boardInstance;
+    //boardInstance.show();
 
+    GameManager gameManager;
 
     //this needs to be moved to gameManager, where we create an array of small pellets and set their positions and add them to the scene
     //or we can also add them to the board images in the board class
-    smallPellets examplePellet;
-    examplePellet.setPos(36, 36);
-    boardInstance.scene()->addItem(&examplePellet);
+    //smallPellets examplePellet;
+    //examplePellet.setPos(36, 36);
+    //boardInstance.scene()->addItem(&examplePellet);
 
 
 

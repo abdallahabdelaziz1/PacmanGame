@@ -89,11 +89,9 @@ board::board()
 
 }
 
-board::~board(){
-    for(int i=0; i<31 ; i++){
-        delete [] boardImages[i];
-    }
-    delete [] boardImages;
+
+int board::getMargin(){
+    return margin;
 }
 
 bool board::checkBlock(int r, int c){
@@ -102,3 +100,16 @@ bool board::checkBlock(int r, int c){
 
     return true;
 }
+
+int board::getBoardData(int r, int c){
+    return boardData[r][c];
+}
+
+board::~board(){
+    for(int i=0; i<31 ; i++){
+        delete [] boardImages[i];
+    }
+    delete [] boardImages;
+}
+
+

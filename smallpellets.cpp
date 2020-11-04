@@ -9,6 +9,6 @@ smallPellets::smallPellets() {
     value = 10;
 
 
-    // I have to setpixmap, setPos, addItemToScene
+    // I have to setpixmap, setPos, addItemToScene I will do the the other two in the game manager.
     setPixmap(sprite);
 }

@@ -19,9 +19,11 @@ private:
 
 public:
     board();
+    int getMargin();
+    int getBoardData(int r, int c);
+    bool checkBlock(int r, int c);
     ~board();
-
-    bool checkBlock(int r, int c); //this function returns false if there is an obstacle at row r and col c, I can't see the point now.
+ //this function returns false if there is an obstacle at row r and col c, I can't see the point now.
 
 
 };
