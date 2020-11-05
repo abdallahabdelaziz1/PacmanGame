@@ -12,7 +12,14 @@ board::board()
     this->setScene(&gameScene);
 
 
-    //2-) We will create our board from a text file
+
+    //2) allocating memory to board data
+    boardData=new int*[31];
+    for(int i=0;i<31;i++){
+        boardData[i]=new int[28];
+    }
+
+    //3-) We will create our board from a text file
 
     //Read board data from txt file and assign it to boardData array
     QFile file("board.txt");
@@ -87,6 +94,9 @@ board::board()
     }
 
 
+
+
+
 }
 
 
@@ -101,6 +111,11 @@ bool board::checkBlock(int r, int c){
     return true;
 }
 
+int **board::getBoardPointer()
+{
+    return boardData;
+}
+
 int board::getBoardData(int r, int c){
     return boardData[r][c];
 }
@@ -111,5 +126,3 @@ board::~board(){
     }
     delete [] boardImages;
 }
-
-

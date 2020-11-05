@@ -6,16 +6,21 @@
 #include "smallpellets.h"
 #include "powerpellets.h"
 #include "fruit.h"
-
+#include"inky.h"
+#include "pinky.h"
+#include"blinky.h"
 
 class GameManager : public QMainWindow
 {
     Q_OBJECT
 private:
     board boardInstance;
-    smallPellets smallPelletsarr[228];
+    smallPellets smallPelletsarr[228]; //better be dynamic?
     powerPellets powerPelletsarr[4];
     fruit fruitInsatnce;
+    Inky *InkyInstant;
+    Pinky *PinkyInstant;
+    Blinky * BlinkyInstant;
 
 public:
     GameManager(QWidget *parent = nullptr);

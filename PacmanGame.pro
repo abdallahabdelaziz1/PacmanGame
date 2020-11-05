@@ -16,19 +16,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    blinky.cpp \
     board.cpp \
     collectables.cpp \
     fruit.cpp \
+    ghosts.cpp \
+    inky.cpp \
     main.cpp \
     gamemanager.cpp \
+    pinky.cpp \
     powerpellets.cpp \
     smallpellets.cpp
 
 HEADERS += \
+    blinky.h \
     board.h \
     collectables.h \
     fruit.h \
     gamemanager.h \
+    ghosts.h \
+    inky.h \
+    pinky.h \
     powerpellets.h \
     smallpellets.h
 

@@ -1,3 +1,4 @@
+
 #include "gamemanager.h"
 
 GameManager::GameManager(QWidget *parent)
@@ -39,15 +40,35 @@ GameManager::GameManager(QWidget *parent)
     }
 
 
-    //smallPellets examplePellet;
-    //examplePellet.setPos(36, 36);
-    //boardInstance.scene()->addItem(&examplePellet);
+
+//adding the ghosts to the scene
+    InkyInstant=new Inky(boardInstance.getBoardPointer());
+    boardInstance.scene()->addItem(InkyInstant);
 
 
+
+    PinkyInstant=new Pinky(boardInstance.getBoardPointer());
+    boardInstance.scene()->addItem(PinkyInstant);
+
+
+    BlinkyInstant=new Blinky(boardInstance.getBoardPointer());
+    boardInstance.scene()->addItem(BlinkyInstant);
+
+    //testing blinky
+   for(int i=0;i<200;i++){ //instead of the loop, use timer
+        BlinkyInstant->FollowPaceman();
+    }
+   BlinkyInstant->changestate(); //if pacman eats power pellet
+   for(int i=0;i<200;i++){
+        BlinkyInstant->escape();//make him escape
+    }
+   //after certain time
+   BlinkyInstant->ReturnOriginalState();//return his image
+   //or if eatern go to home
+   BlinkyInstant->ReturnHome();//note return home calls return original state and retrun it to home as well
 
 }
 
 GameManager::~GameManager()
 {
 }
-

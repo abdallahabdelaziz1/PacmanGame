@@ -1,1 +1,1 @@
-put these files in the build folder! this will probably be a temprary solution!
+put these files in the build folder!

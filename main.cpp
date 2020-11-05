@@ -37,7 +37,6 @@ int main(int argc, char *argv[])
     //Create our player
     Player p(boardData);
     scene.addItem(&p); //we must add it to the scene to render
-
     //to handle event you must
     //1- create the apporpriate slot
     //2- associate the input to the suitable item, you can only focus one item to listen at one time.
@@ -46,8 +45,6 @@ int main(int argc, char *argv[])
     //if you have multiple things/items that need input instead of the player
     //then I think it is better to use one general item that listens to all input and sends appropriate input to each item
     //or automatically change the focus between items or create a way for the player to change the focus.
-
-
     Food food(1,3);
     scene.addItem(&food);*/
 
