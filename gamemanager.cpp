@@ -9,35 +9,47 @@ GameManager::GameManager(QWidget *parent)
     boardInstance.show(); //show the board
 
 
-    //the smallpellets will be from 01 to 100 except for 31 & 36 then from 197 to 330 except for 243 & 264
-    //I will ignore these positions for now: 101, 104, 105, 108, 109, 120, 121, 126, 127, 136, 143, 156, 163, 172, 173, 176, 177, 188, 189, 192, 193, 196
+    //the smallpellets will be from 01 to 94 except for 31 & 36 then from 186 to 309 except for 243 & 264
+    //and these positions : 95, 105, 106, 109, 110, 113, 114, 125, 126, 131, 138, 151, 158, 161, 162, 173, 174, 177, 178, 181, 182, 185
     //1-) we can get boarddata from board class and check which i,j is suitable to set pos for small pellets.
     //2-) we can set boardimages to smallpellets and set position of boardimages. we will also have to use boardData.
     //I will use the first method!
 
-    //TO DO: should set blockDim and margin and use them instead of 16 and 20 in here
+    int tempArr[] ={95, 105, 106, 109, 110, 113, 114, 125, 126, 131, 138, 151, 158, 161, 162, 173, 174, 177, 178, 181, 182, 185};
+
+    //TO DO: should set blockDim and margin and use them instead of 20 and 20 in here
     int tempItr = 0 ;
     int tempItr2= 0;
     for(int i=0; i<31; i++){
         for(int j=0; j<28; j++){
-            if( boardInstance.getBoardData(i,j) > 0 && boardInstance.getBoardData(i,j) < 101 && boardInstance.getBoardData(i,j) != 31 && boardInstance.getBoardData(i,j) != 36){
-                smallPelletsarr[tempItr].setPos(16*j + 20, 16*i + 20);
+            if( boardInstance.getBoardData(i,j) > 0 && boardInstance.getBoardData(i,j) < 95 && boardInstance.getBoardData(i,j) != 31 && boardInstance.getBoardData(i,j) != 36){
+                smallPelletsarr[tempItr].setPos(20*j + 30, 20*i + 30);
                 boardInstance.scene()->addItem(&smallPelletsarr[tempItr]);
                 tempItr++;
-            }else if(boardInstance.getBoardData(i,j) > 196 && boardInstance.getBoardData(i,j) < 331 && boardInstance.getBoardData(i,j) != 243 && boardInstance.getBoardData(i,j) != 264){
-                smallPelletsarr[tempItr].setPos(16*j + 20, 16*i + 20);
+            }else if(boardInstance.getBoardData(i,j) > 185 && boardInstance.getBoardData(i,j) < 310 && boardInstance.getBoardData(i,j) != 222 && boardInstance.getBoardData(i,j) != 243){
+                smallPelletsarr[tempItr].setPos(20*j + 30, 20*i + 30);
                 boardInstance.scene()->addItem(&smallPelletsarr[tempItr]);
                 tempItr++;
+            }else{
+                for(int k=0; k<22; k++){
+                    if(tempArr[k] == boardInstance.getBoardData(i,j)){
+                        smallPelletsarr[tempItr].setPos(20*j + 30, 20*i + 30);
+                        boardInstance.scene()->addItem(&smallPelletsarr[tempItr]);
+                        tempItr++;
+                    }
+                }
             }
 
-            if(boardInstance.getBoardData(i,j) == 31 || boardInstance.getBoardData(i,j) == 36 || boardInstance.getBoardData(i,j) == 243 || boardInstance.getBoardData(i,j) == 264 ){
-                powerPelletsarr[tempItr2].setPos(16*j + 20, 16*i + 20);
+
+            if(boardInstance.getBoardData(i,j) == 31 || boardInstance.getBoardData(i,j) == 36 || boardInstance.getBoardData(i,j) == 243 || boardInstance.getBoardData(i,j) == 222 ){
+                powerPelletsarr[tempItr2].setPos(20*j + 30, 20*i + 30);
                 boardInstance.scene()->addItem(&powerPelletsarr[tempItr2]);
                 tempItr2++;
             }
 
         }
     }
+
 
 
 

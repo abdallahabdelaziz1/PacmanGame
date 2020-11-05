@@ -20,7 +20,7 @@ class GameManager : public QMainWindow
     Q_OBJECT
 private:
     board boardInstance;
-    smallPellets smallPelletsarr[228]; //better be dynamic?
+    smallPellets smallPelletsarr[240]; //better be dynamic?
     powerPellets powerPelletsarr[4];
     fruit fruitInsatnce;
     Inky *InkyInstant;

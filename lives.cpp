@@ -10,7 +10,7 @@ lives::lives(QGraphicsScene* scene, int n)
     for(int i =0; i < n-1; i++)
     {
         shapes[i].setPixmap(playerImage);
-        shapes[i].setPos(margin+blockDim*i, 516);      //, 20+i*blockdim, sceneDim
+        shapes[i].setPos(margin+blockDim*i, 31*blockDim+ margin);      //, 20+i*blockdim, sceneDim = 31*blockDim
         scene->addItem(&shapes[i]);
     }
     num = n;

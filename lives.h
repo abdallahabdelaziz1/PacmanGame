@@ -14,8 +14,8 @@ private:
     QGraphicsPixmapItem* shapes;
     QPixmap icon;
     QGraphicsScene* savedscene;
-    int blockDim = 16;
-    int margin = 20;
+    int blockDim = 20;
+    int margin = 30;
 public:
    lives(QGraphicsScene* scene, int n = 3);
    void loselife();

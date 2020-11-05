@@ -25,8 +25,8 @@ protected:
     int row;
     int column;
     int value;
-    int blockDim = 16;
-    int margin = 20;
+    int blockDim = 20;
+    int margin = 30;
     QPixmap sprite;
     int** boardData;
 

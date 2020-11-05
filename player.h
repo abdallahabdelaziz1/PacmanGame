@@ -16,8 +16,8 @@ private:
     int col;
     char direct;
     QString state;
-    int blockDim = 16;
-    int margin = 20;
+    int blockDim = 20;
+    int margin = 30;
 public:
     player();
     int getRow();
