@@ -15,14 +15,14 @@ GameManager::GameManager(QWidget *parent)
     //2-) we can set boardimages to smallpellets and set position of boardimages. we will also have to use boardData.
     //I will use the first method!
 
-    int tempArr[] ={95, 105, 106, 109, 110, 113, 114, 125, 126, 131, 138, 151, 158, 161, 162, 173, 174, 177, 178, 181, 182, 185};
+    int tempArr[] ={ 106, 109, 110, 113, 114, 125, 126, 131, 138, 151, 158, 161, 162, 173, 174, 177, 178, 181, 182, 185};
 
     //TO DO: should set blockDim and margin and use them instead of 20 and 20 in here
     int tempItr = 0 ;
     int tempItr2= 0;
     for(int i=0; i<31; i++){
         for(int j=0; j<28; j++){
-            if( boardInstance.getBoardData(i,j) > 0 && boardInstance.getBoardData(i,j) < 95 && boardInstance.getBoardData(i,j) != 31 && boardInstance.getBoardData(i,j) != 36){
+            if( boardInstance.getBoardData(i,j) > 0 && boardInstance.getBoardData(i,j) < 106 && boardInstance.getBoardData(i,j) != 31 && boardInstance.getBoardData(i,j) != 36){
                 smallPelletsarr[tempItr].setPos(20*j + 30, 20*i + 30);
                 boardInstance.scene()->addItem(&smallPelletsarr[tempItr]);
                 tempItr++;
@@ -31,7 +31,7 @@ GameManager::GameManager(QWidget *parent)
                 boardInstance.scene()->addItem(&smallPelletsarr[tempItr]);
                 tempItr++;
             }else{
-                for(int k=0; k<22; k++){
+                for(int k=0; k<20; k++){
                     if(tempArr[k] == boardInstance.getBoardData(i,j)){
                         smallPelletsarr[tempItr].setPos(20*j + 30, 20*i + 30);
                         boardInstance.scene()->addItem(&smallPelletsarr[tempItr]);
