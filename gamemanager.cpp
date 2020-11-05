@@ -67,6 +67,17 @@ GameManager::GameManager(QWidget *parent)
    //or if eatern go to home
    BlinkyInstant->ReturnHome();//note return home calls return original state and retrun it to home as well
 
+
+
+   //adding score, remaining lives, and game state
+   pacman = new player;
+   remlives = new lives(boardInstance.scene());
+   gamestate = new text;
+   currentscore = new score;
+   boardInstance.scene()->addItem(pacman);
+   boardInstance.scene()->addItem(gamestate);
+   boardInstance.scene()->addItem(currentscore);
+
 }
 
 GameManager::~GameManager()

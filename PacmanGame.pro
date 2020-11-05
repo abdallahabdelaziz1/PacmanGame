@@ -22,11 +22,15 @@ SOURCES += \
     fruit.cpp \
     ghosts.cpp \
     inky.cpp \
+    lives.cpp \
     main.cpp \
     gamemanager.cpp \
     pinky.cpp \
+    player.cpp \
     powerpellets.cpp \
-    smallpellets.cpp
+    score.cpp \
+    smallpellets.cpp \
+    text.cpp
 
 HEADERS += \
     blinky.h \
@@ -36,9 +40,13 @@ HEADERS += \
     gamemanager.h \
     ghosts.h \
     inky.h \
+    lives.h \
     pinky.h \
+    player.h \
     powerpellets.h \
-    smallpellets.h
+    score.h \
+    smallpellets.h \
+    text.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -9,6 +9,11 @@
 #include"inky.h"
 #include "pinky.h"
 #include"blinky.h"
+#include "lives.h"
+#include "score.h"
+#include "text.h"
+#include "player.h"
+
 
 class GameManager : public QMainWindow
 {
@@ -21,6 +26,11 @@ private:
     Inky *InkyInstant;
     Pinky *PinkyInstant;
     Blinky * BlinkyInstant;
+    player* pacman;
+    lives* remlives;
+    text* gamestate;
+    score* currentscore;
+
 
 public:
     GameManager(QWidget *parent = nullptr);
