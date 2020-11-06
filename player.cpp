@@ -33,7 +33,7 @@ void player::move()
         row--;
     else if (direct == 'D'&&boardData[row+1][col]>0)
         row++;
-    else if (direct == 'L'&& boardData[row][col+1]>0)
+    else if (direct == 'L'&& boardData[row][col-1]>0)
         col--;
     else if (boardData[row][col+1]>0)
         col++;
