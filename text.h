@@ -13,8 +13,8 @@ protected:
     QFont font;
     QString display;
 public:
-    text();
-    void lost();
+    text();                           //initiated at teh begining of the game and shows the word "READY!" on screen.
+    void lost();                      //switches form "READY!" to "GAME OVER"
 };
 
 #endif // TEXT_H

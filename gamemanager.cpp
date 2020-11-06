@@ -82,13 +82,16 @@ GameManager::GameManager(QWidget *parent)
 
 
    //adding score, remaining lives, and game state
-   pacman = new player;
+   pacman = new player(boardInstance.getBoardPointer());
    remlives = new lives(boardInstance.scene());
    gamestate = new text;
    currentscore = new score;
    boardInstance.scene()->addItem(pacman);
    boardInstance.scene()->addItem(gamestate);
    boardInstance.scene()->addItem(currentscore);
+
+
+
 
 }
 

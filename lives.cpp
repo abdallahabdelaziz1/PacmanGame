@@ -3,7 +3,7 @@
 lives::lives(QGraphicsScene* scene, int n)
 {
     shapes = new QGraphicsPixmapItem[10];
-    QPixmap playerImage("pacman.png");
+    QPixmap playerImage("pacmanR.png");
     playerImage = playerImage.scaledToWidth(blockDim);
     playerImage = playerImage.scaledToHeight(blockDim);
     icon = playerImage;

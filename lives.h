@@ -17,10 +17,10 @@ private:
     int blockDim = 20;
     int margin = 30;
 public:
-   lives(QGraphicsScene* scene, int n = 3);
+   lives(QGraphicsScene* scene, int n = 3);          //takes the scene as an argument and an optional number of lives (default 3)
+   int getnumlives();                                //returns remaining lives
    void loselife();
-   int getnumlives();
-   void addlive();
+   void addlive();                                   //should be called when score reaches 10 000
 };
 
 #endif // LIVES_H
