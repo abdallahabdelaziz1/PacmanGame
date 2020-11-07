@@ -123,7 +123,7 @@ void GameManager::keyPressEvent(QKeyEvent *event)
     if (event->key() == Qt::Key_Space && !started)
     {
        scene->removeItem(gamestate);
-       timer->start(90);
+       timer->start(150);
        started=true;
     }
     if(started){
@@ -144,10 +144,69 @@ void GameManager::keyPressEvent(QKeyEvent *event)
 }
 
 void GameManager::advance(){
+
+    QList<QGraphicsItem*> collidedItems = pacman->collidingItems();
+    for(int i=0; i < collidedItems.size(); i++){
+        if( typeid(*collidedItems[i]) == typeid(smallPellets)){
+            scene->removeItem(collidedItems[i]);
+            playerScore += smallPelletsarr[0].getValue();
+        }else if(typeid(*collidedItems[i]) == typeid(powerPellets)){
+            scene->removeItem(collidedItems[i]);
+            playerScore += powerPelletsarr[0].getValue();
+            InkyInstant->changestate();
+            InkyInstant->escape();
+            PinkyInstant->changestate();
+            PinkyInstant->escape();
+            BlinkyInstant->changestate();
+            BlinkyInstant->escape();
+        }else if(typeid(*collidedItems[i]) == typeid(Inky)){
+            if(InkyInstant->getAttackingState() == 0){
+                //Ghost is eaten
+                InkyInstant->ReturnHome();
+                playerScore += 200;
+            }else{
+                //ghost will attack, he will lose a live, game will reset,
+                remlives->loselife();
+                resetGame();
+            }
+        }else if(typeid(*collidedItems[i]) == typeid(Pinky)){
+            if(PinkyInstant->getAttackingState() == 0){
+                PinkyInstant->ReturnHome();
+                playerScore += 200;
+            }else{
+                remlives->loselife();
+                resetGame();
+            }
+        }else if(typeid(*collidedItems[i]) == typeid(Blinky)){
+            if(BlinkyInstant->getAttackingState() == 0){
+                BlinkyInstant->ReturnHome();
+                playerScore += 200;
+            }else{
+                remlives->loselife();
+                resetGame();
+            }
+        }else if(typeid(*collidedItems[i]) == typeid(fruit)){
+                scene->removeItem(collidedItems[i]);
+        }
+    }
+
+    currentscore->updatescore(playerScore);
+
     InkyInstant->FollowPaceman();
     PinkyInstant->FollowPaceman();
     BlinkyInstant->FollowPaceman();
     pacman->move();
+
+
+
+
+}
+
+void GameManager::resetGame(){
+    InkyInstant->ReturnHome();
+    PinkyInstant->ReturnHome();
+    BlinkyInstant->ReturnHome();
+    pacman->reset();
 }
 
 GameManager::~GameManager()

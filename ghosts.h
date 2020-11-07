@@ -16,7 +16,7 @@ public:
     void changestate(); //changes the image of the ghost to the scared ghost
     void escape(); // make him escape from the pacman
     virtual void ReturnOriginalState()=0; //returns its original image
-    bool getstate();
+    bool getAttackingState();
     void SETPOS(int r, int c);//chang the position of the ghose
 
 protected:

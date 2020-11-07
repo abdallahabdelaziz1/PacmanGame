@@ -14,6 +14,7 @@ Ghosts::Ghosts(int** temp)
         }
     }
 
+    srand(time(NULL));
 
 
     value=200;
@@ -27,7 +28,7 @@ Ghosts::Ghosts(int** temp)
 void Ghosts::FollowPaceman()
 {
 //the motion here will be random, and will be overrided by algorithmic motion in child classes in the next milestone
-srand(time(NULL));
+
 int q=qrand()%4;
 if(q==0 && boardData[row-1][column]>0){
     row--; //up
@@ -68,7 +69,7 @@ void Ghosts::escape()
 }
 
 
-bool Ghosts::getstate()
+bool Ghosts::getAttackingState()
 {
     return AttackingState;
 }

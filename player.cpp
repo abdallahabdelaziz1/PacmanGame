@@ -30,6 +30,7 @@ void player::move()
 {
     if(direct == 'U' && boardData[row-1][col]>0){
         row--;
+        //speed;
     }
     else if (direct == 'D'&& boardData[row+1][col]>0){
         row++;

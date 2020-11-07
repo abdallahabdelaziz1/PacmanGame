@@ -30,6 +30,7 @@ private:
     Pinky *PinkyInstant;
     Blinky * BlinkyInstant;
     player* pacman;
+    int playerScore =0;
     lives* remlives;
     text* gamestate;
     score* currentscore;
@@ -41,6 +42,7 @@ private:
 private slots:
     void keyPressEvent(QKeyEvent *event); //override()
     void advance();
+    void resetGame();
 public:
     GameManager();
     ~GameManager();
