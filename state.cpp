@@ -12,7 +12,7 @@ state::state()
 
 void state::invenciblestate()
 {
-    display="Invencible";
+    display="invincible";
     setPos(380, 0);
     setDefaultTextColor(Qt::red);
     setPlainText(display);
