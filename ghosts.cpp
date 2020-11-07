@@ -22,6 +22,8 @@ Ghosts::Ghosts(int** temp)
 
 }
 
+
+
 void Ghosts::FollowPaceman()
 {
 //the motion here will be random, and will be overrided by algorithmic motion in child classes in the next milestone
@@ -35,9 +37,15 @@ else if(q==1 && boardData[row+1][column]>0){
 }
 else if(q==2  && boardData[row][column+1]>0){
     column++;//right
+    if (column == TotalColumns)//handling portal
+        column = 0;
 }
-else if(q==3 && boardData[row][column-1]>0)
-    column--;//left
+else if(q==3 && boardData[row][column-1]>0){
+     column--;//left
+     if(column==-1)//handling portal
+         column=TotalColumns-1;
+}
+
 
 SETPOS(row, column);
 

@@ -6,7 +6,7 @@ class Inky:public Ghosts
 {
 private:
     const int InitialRow=14;
-     const int InitialColumn=12;
+     const int InitialColumn=13;
 public:
     Inky(int** temp);
   //  void FollowPaceman() override; //will be defined later

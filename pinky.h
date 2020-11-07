@@ -6,7 +6,7 @@ class Pinky: public Ghosts
 {
 private:
     const int InitialRow=14;
-     const int InitialColumn=13;
+     const int InitialColumn=16;
 public:
     Pinky(int** temp);
   //  void FollowPaceman() override; //will be defined later
