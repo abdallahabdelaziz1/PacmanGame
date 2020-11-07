@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include<QGraphicsView>
 #include <QTimer>
+//#include <QtDebug>
 #include "board.h"
 #include "smallpellets.h"
 #include "powerpellets.h"
@@ -15,7 +16,7 @@
 #include "score.h"
 #include "text.h"
 #include "player.h"
-
+#include "state.h"
 
 class GameManager : public QGraphicsView
 {
@@ -38,8 +39,11 @@ private:
     int margin = 30; //margin from the board to the view borders, it will be the same from all sides for simplicity
     int sceneDim = 31*blockDim + 2*margin; //this is the dimension of the scene, the length and width of the scene, it will be a square for simplicity
     QTimer *timer;
-     QTimer *timerGhostState;
+    QTimer *timerGhostState;
     bool started = false;
+    state* pacstate;
+    int tenkcount=1;
+
 private slots:
     void keyPressEvent(QKeyEvent *event); //override()
     void advance();

@@ -5,13 +5,6 @@ GameManager::GameManager()
 
 {
 
-    /*
-    ui->setupUi(this);
-    scene= new QGraphicsScene;
-    ui->graphicsView->setScene(scene);
-
-
-*/
     scene=new QGraphicsScene;
     (this)->QGraphicsView::setFixedSize(sceneDim, sceneDim);
     this->setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
@@ -113,6 +106,8 @@ GameManager::GameManager()
    remlives = new lives(scene);
    gamestate = new text;
    currentscore = new score;
+   pacstate = new state;
+   scene->addItem(pacstate);
    scene->addItem(pacman);
    scene->addItem(gamestate);
    scene->addItem(currentscore);
@@ -126,7 +121,7 @@ void GameManager::keyPressEvent(QKeyEvent *event)
     if (event->key() == Qt::Key_Space && !started)
     {
        scene->removeItem(gamestate);
-       timer->start(150);
+       timer->start(200);
        started=true;
     }
     if(started){
@@ -147,10 +142,12 @@ void GameManager::keyPressEvent(QKeyEvent *event)
 }
 
 void GameManager::advance(){
-
-
-
-
+    //adding a life everytime the player gains 10,000 points
+    if(playerScore/10000==tenkcount){
+        //qDebug()<<playerScore/10000;
+        remlives->addlive();
+        tenkcount++;
+    }
 
     QList<QGraphicsItem*> collidedItems = pacman->collidingItems();
     for(int i=0; i < collidedItems.size(); i++){
@@ -159,6 +156,7 @@ void GameManager::advance(){
             playerScore += smallPelletsarr[0].getValue();
         }else if(typeid(*collidedItems[i]) == typeid(powerPellets)){
             scene->removeItem(collidedItems[i]);
+            pacstate->invenciblestate();
             playerScore += powerPelletsarr[0].getValue();
             InkyInstant->changestate();
             InkyInstant->escape();
@@ -221,7 +219,7 @@ void GameManager::ghostStateTimeout(){
     if(BlinkyInstant->getAttackingState() != 1){
         BlinkyInstant->ReturnOriginalState();
     }
-
+    pacstate->normalstate();
     timerGhostState->stop();
 }
 
@@ -230,6 +228,7 @@ void GameManager::resetGame(){
     PinkyInstant->ReturnHome();
     BlinkyInstant->ReturnHome();
     pacman->reset();
+    pacstate->normalstate();
 }
 
 GameManager::~GameManager()

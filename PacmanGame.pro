@@ -30,6 +30,7 @@ SOURCES += \
     powerpellets.cpp \
     score.cpp \
     smallpellets.cpp \
+    state.cpp \
     text.cpp
 
 HEADERS += \
@@ -46,6 +47,7 @@ HEADERS += \
     powerpellets.h \
     score.h \
     smallpellets.h \
+    state.h \
     text.h
 
 # Default rules for deployment.

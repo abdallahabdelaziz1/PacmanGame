@@ -50,18 +50,30 @@ void player::move()
 }
 
 void player::changedir(char dir){
-    direct = dir;
-    if (dir == 'U')
+    if (dir == 'U'){
+        if (boardData[row-1][col]<0)
+            return;
         pacman.load("pacmanU.png");
-    else if (direct == 'D')
+    }
+    else if (dir == 'D'){
+        if (boardData[row+1][col]<0)
+            return;
         pacman.load("pacmanD.png");
-    else if (direct == 'L')
+    }
+    else if (dir == 'L'){
+        if (boardData[row][col-1]<0)
+            return;
         pacman.load("pacmanL.png");
-    else
+    }
+    else{
+        if (boardData[row][col+1]<0)
+            return;
         pacman.load("pacmanR.png");
+    }
     pacman = pacman.scaledToWidth(blockDim);
     pacman = pacman.scaledToHeight(blockDim);
     setPixmap(pacman);
+        direct = dir;
 }
 void player::changestate(){
     if (invencible == true)

@@ -28,7 +28,7 @@ int lives::getnumlives(){
 
 void lives::addlive(){
     shapes[num-1].setPixmap(icon);
-    shapes[num-1].setPos(margin+blockDim*(num-1), 850);
+    shapes[num-1].setPos(margin+blockDim*(num-1), 31*blockDim+ margin);
     savedscene->addItem(&shapes[num-1]);
     num++;
 
