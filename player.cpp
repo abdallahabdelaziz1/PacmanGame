@@ -18,6 +18,8 @@ player::player(int** temp) {
 
         }
     }
+    mouthanim = new QTimer(this);
+    connect(mouthanim, SIGNAL(timeout()),this, SLOT(movemouth()));
 }
 int player::getRow() {
     return row;
@@ -28,6 +30,9 @@ int player::getCol() {
 
 void player::move()
 {
+    if (!gamestarted){
+        startanim();
+        gamestarted = true;}
     if(direct == 'U' && boardData[row-1][col]>0){
         row--;
         //speed;
@@ -51,29 +56,41 @@ void player::move()
 
 void player::changedir(char dir){
     if (dir == 'U'){
-        if (boardData[row-1][col]<0)
+        if (boardData[row-1][col]<0){
+            endanim();
             return;
+        }
         pacman.load("pacmanU.png");
+        direct = dir;
     }
     else if (dir == 'D'){
-        if (boardData[row+1][col]<0)
+        if (boardData[row+1][col]<0){
+            endanim();
             return;
+        }
         pacman.load("pacmanD.png");
+        direct = dir;
     }
     else if (dir == 'L'){
-        if (boardData[row][col-1]<0)
+        if (boardData[row][col-1]<0){
+            endanim();
             return;
+        }
         pacman.load("pacmanL.png");
+        direct = dir;
     }
     else{
-        if (boardData[row][col+1]<0)
+        if (boardData[row][col+1]<0){
+            endanim();
             return;
+        }
         pacman.load("pacmanR.png");
+        direct = dir;
     }
     pacman = pacman.scaledToWidth(blockDim);
     pacman = pacman.scaledToHeight(blockDim);
     setPixmap(pacman);
-        direct = dir;
+
 }
 void player::changestate(){
     if (invencible == true)
@@ -90,4 +107,19 @@ void player::reset(){
     row = spawnrow;
     col = spawncol;
     setPos(blockDim*col+margin, blockDim*row+margin);
+}
+
+void player::startanim()
+{
+    mouthanim->start(20);
+}
+
+void player::endanim()
+{
+    mouthanim->stop();
+}
+
+void player::movemouth()
+{
+
 }

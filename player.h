@@ -5,7 +5,7 @@
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 #include <QString>
-#include <QKeyEvent>
+#include <QTimer>
 #include <QList>
 
 class player : public QObject, public QGraphicsPixmapItem
@@ -24,6 +24,9 @@ private:
     int margin = 30;
     QPixmap pacman;
     int** boardData;
+    QTimer* mouthanim;
+    int frame = 0;
+    bool gamestarted = false;
 public:
     player(int** temp);             //takes the game board as an argument
     int getRow();                   //gets pacman position
@@ -33,5 +36,8 @@ public:
     void changestate();             //changes between invencible and normal states
     bool isinvecible();             //returns true if invencible //interchangable with ghoast state (may not be needed)
     void reset();                   //returns pacman to spawn
+    void startanim();
+    void endanim();
+    void movemouth();
 };
 #endif // PLAYER_H
