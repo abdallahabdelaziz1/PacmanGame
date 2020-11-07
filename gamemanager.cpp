@@ -1,12 +1,42 @@
 
 #include "gamemanager.h"
 
-GameManager::GameManager(QWidget *parent)
-    : QMainWindow(parent)
+void GameManager::keyPressEvent(QKeyEvent *event)
 {
-    //The game manager will initialize the game
+    if (event->key() == Qt::Key_Space)
+    {
+       scene->removeItem(gamestate);
+    }
+}
 
-    boardInstance.show(); //show the board
+GameManager::GameManager()
+
+{
+
+    /*
+    ui->setupUi(this);
+    scene= new QGraphicsScene;
+    ui->graphicsView->setScene(scene);
+
+
+*/
+    scene=new QGraphicsScene;
+    (this)->QGraphicsView::setFixedSize(sceneDim, sceneDim);
+    this->setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
+    this->setScene(scene);
+        //1-)Create the view and the scene
+        //
+        //this->setWindowTitle("Pacman Game");
+       // this->setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern)); //this changes the background color to black
+     //   this->setScene(&gameScene);
+
+
+
+
+    //The game manager will initialize the game
+boardInstance=new board(scene);
+
+   // boardInstance->show(); //show the board
 
 
     //the smallpellets will be from 01 to 94 except for 31 & 36 then from 186 to 309 except for 243 & 264
@@ -22,28 +52,28 @@ GameManager::GameManager(QWidget *parent)
     int tempItr2= 0;
     for(int i=0; i<31; i++){
         for(int j=0; j<28; j++){
-            if( boardInstance.getBoardData(i,j) > 0 && boardInstance.getBoardData(i,j) < 106 && boardInstance.getBoardData(i,j) != 31 && boardInstance.getBoardData(i,j) != 36){
+            if( boardInstance->getBoardData(i,j) > 0 && boardInstance->getBoardData(i,j) < 106 && boardInstance->getBoardData(i,j) != 31 && boardInstance->getBoardData(i,j) != 36){
                 smallPelletsarr[tempItr].setPos(20*j + 30, 20*i + 30);
-                boardInstance.scene()->addItem(&smallPelletsarr[tempItr]);
+                scene->addItem(&smallPelletsarr[tempItr]);
                 tempItr++;
-            }else if(boardInstance.getBoardData(i,j) > 185 && boardInstance.getBoardData(i,j) < 310 && boardInstance.getBoardData(i,j) != 222 && boardInstance.getBoardData(i,j) != 243){
+            }else if(boardInstance->getBoardData(i,j) > 185 && boardInstance->getBoardData(i,j) < 310 && boardInstance->getBoardData(i,j) != 222 && boardInstance->getBoardData(i,j) != 243){
                 smallPelletsarr[tempItr].setPos(20*j + 30, 20*i + 30);
-                boardInstance.scene()->addItem(&smallPelletsarr[tempItr]);
+                scene->addItem(&smallPelletsarr[tempItr]);
                 tempItr++;
             }else{
                 for(int k=0; k<20; k++){
-                    if(tempArr[k] == boardInstance.getBoardData(i,j)){
+                    if(tempArr[k] == boardInstance->getBoardData(i,j)){
                         smallPelletsarr[tempItr].setPos(20*j + 30, 20*i + 30);
-                        boardInstance.scene()->addItem(&smallPelletsarr[tempItr]);
+                       scene->addItem(&smallPelletsarr[tempItr]);
                         tempItr++;
                     }
                 }
             }
 
 
-            if(boardInstance.getBoardData(i,j) == 31 || boardInstance.getBoardData(i,j) == 36 || boardInstance.getBoardData(i,j) == 243 || boardInstance.getBoardData(i,j) == 222 ){
+            if(boardInstance->getBoardData(i,j) == 31 || boardInstance->getBoardData(i,j) == 36 || boardInstance->getBoardData(i,j) == 243 || boardInstance->getBoardData(i,j) == 222 ){
                 powerPelletsarr[tempItr2].setPos(20*j + 30, 20*i + 30);
-                boardInstance.scene()->addItem(&powerPelletsarr[tempItr2]);
+                scene->addItem(&powerPelletsarr[tempItr2]);
                 tempItr2++;
             }
 
@@ -54,17 +84,17 @@ GameManager::GameManager(QWidget *parent)
 
 
 //adding the ghosts to the scene
-    InkyInstant=new Inky(boardInstance.getBoardPointer());
-    boardInstance.scene()->addItem(InkyInstant);
+    InkyInstant=new Inky(boardInstance->getBoardPointer());
+    scene->addItem(InkyInstant);
 
 
 
-    PinkyInstant=new Pinky(boardInstance.getBoardPointer());
-    boardInstance.scene()->addItem(PinkyInstant);
+    PinkyInstant=new Pinky(boardInstance->getBoardPointer());
+    scene->addItem(PinkyInstant);
 
 
-    BlinkyInstant=new Blinky(boardInstance.getBoardPointer());
-    boardInstance.scene()->addItem(BlinkyInstant);
+    BlinkyInstant=new Blinky(boardInstance->getBoardPointer());
+   scene->addItem(BlinkyInstant);
 
     //testing blinky
    for(int i=0;i<200;i++){ //instead of the loop, use timer
@@ -82,13 +112,13 @@ GameManager::GameManager(QWidget *parent)
 
 
    //adding score, remaining lives, and game state
-   pacman = new player(boardInstance.getBoardPointer());
-   remlives = new lives(boardInstance.scene());
+   pacman = new player(boardInstance->getBoardPointer());
+   remlives = new lives(scene);
    gamestate = new text;
    currentscore = new score;
-   boardInstance.scene()->addItem(pacman);
-   boardInstance.scene()->addItem(gamestate);
-   boardInstance.scene()->addItem(currentscore);
+   scene->addItem(pacman);
+   scene->addItem(gamestate);
+   scene->addItem(currentscore);
 
 }
 

@@ -10,15 +10,16 @@
 class board : public QGraphicsView
 {
 private:
-    QGraphicsScene gameScene; //this is the main game scene of our view, we can add multiple scenes if we want later
+    QGraphicsScene *gameScene; //this is the main game scene of our view, we can add multiple scenes if we want later
     int** boardData; //array to save the board.txt
     int blockDim = 20; //the length and width of each row and column in pixels (dimensions of each row and col in pixels)
     int margin = 30; //margin from the board to the view borders, it will be the same from all sides for simplicity
     int sceneDim = 31*blockDim + 2*margin; //this is the dimension of the scene, the length and width of the scene, it will be a square for simplicity
     QGraphicsPixmapItem **boardImages;
 
+
 public:
-    board();
+    board(QGraphicsScene * g);
     int getMargin();
     int getBoardData(int r, int c);
     bool checkBlock(int r, int c);

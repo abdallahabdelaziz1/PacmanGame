@@ -1,16 +1,9 @@
 #include "board.h"
 
-board::board()
+board::board(QGraphicsScene * g)
 {
 
-
-
-    //1-)Create the view and the scene
-    this->setFixedSize(sceneDim,sceneDim);
-    this->setWindowTitle("Pacman Game");
-    this->setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern)); //this changes the background color to black
-    this->setScene(&gameScene);
-
+    gameScene=g;
 
 
     //2) allocating memory to board data
@@ -89,7 +82,7 @@ board::board()
             boardImages[i][j].setPos(blockDim*j + margin, blockDim*i + margin);
 
             //we must render our items, add the images to the scene
-            gameScene.addItem(&boardImages[i][j]);
+            gameScene->addItem(&boardImages[i][j]);
         }
     }
 

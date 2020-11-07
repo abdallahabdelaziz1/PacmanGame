@@ -20,6 +20,7 @@ int main(int argc, char *argv[])
     //boardInstance.show();
 
     GameManager gameManager;
+    gameManager.QGraphicsView::show();
 
     //this needs to be moved to gameManager, where we create an array of small pellets and set their positions and add them to the scene
     //or we can also add them to the board images in the board class
