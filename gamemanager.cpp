@@ -123,6 +123,7 @@ void GameManager::keyPressEvent(QKeyEvent *event)
        scene->removeItem(gamestate);
        timer->start(200);
        started=true;
+       pacman->startanim();
     }
     if(started){
     if (event->key() == Qt::Key_Up)

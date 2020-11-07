@@ -7,6 +7,7 @@
 #include <QString>
 #include <QTimer>
 #include <QList>
+#include <QDebug>
 
 class player : public QObject, public QGraphicsPixmapItem
 {
@@ -26,7 +27,6 @@ private:
     int** boardData;
     QTimer* mouthanim;
     int frame = 0;
-    bool gamestarted = false;
 public:
     player(int** temp);             //takes the game board as an argument
     int getRow();                   //gets pacman position
@@ -38,6 +38,7 @@ public:
     void reset();                   //returns pacman to spawn
     void startanim();
     void endanim();
+ private slots:
     void movemouth();
 };
 #endif // PLAYER_H

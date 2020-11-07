@@ -30,9 +30,6 @@ int player::getCol() {
 
 void player::move()
 {
-    if (!gamestarted){
-        startanim();
-        gamestarted = true;}
     if(direct == 'U' && boardData[row-1][col]>0){
         row--;
         //speed;
@@ -57,40 +54,28 @@ void player::move()
 void player::changedir(char dir){
     if (dir == 'U'){
         if (boardData[row-1][col]<0){
-            endanim();
             return;
         }
-        pacman.load("pacmanU.png");
         direct = dir;
     }
     else if (dir == 'D'){
         if (boardData[row+1][col]<0){
-            endanim();
             return;
         }
-        pacman.load("pacmanD.png");
         direct = dir;
     }
     else if (dir == 'L'){
         if (boardData[row][col-1]<0){
-            endanim();
             return;
         }
-        pacman.load("pacmanL.png");
         direct = dir;
     }
     else{
         if (boardData[row][col+1]<0){
-            endanim();
             return;
         }
-        pacman.load("pacmanR.png");
         direct = dir;
     }
-    pacman = pacman.scaledToWidth(blockDim);
-    pacman = pacman.scaledToHeight(blockDim);
-    setPixmap(pacman);
-
 }
 void player::changestate(){
     if (invencible == true)
@@ -122,4 +107,79 @@ void player::endanim()
 void player::movemouth()
 {
 
+if(direct == 'R'){
+    if(boardData[row][col+1]>0){
+        if(frame%6==0)
+            pacman.load("pacmanClosed.png");
+        if(frame%6==1)
+            pacman.load("pacmanR1.png");
+        if(frame%6==2)
+            pacman.load("pacmanR2.png");
+        if(frame%6==3)
+            pacman.load("pacmanR.png");
+        if(frame%6==4)
+            pacman.load("pacmanR2.png");
+        if(frame%6==5)
+            pacman.load("pacmanR1.png");}
+    else
+        pacman.load("pacmanR.png");
+}
+if(direct == 'L'){
+    if(boardData[row][col-1]>0){
+        if(frame%6==0)
+            pacman.load("pacmanClosed.png");
+        if(frame%6==1)
+            pacman.load("pacmanL1.png");
+        if(frame%6==2)
+            pacman.load("pacmanL2.png");
+        if(frame%6==3)
+            pacman.load("pacmanL.png");
+        if(frame%6==4)
+            pacman.load("pacmanL2.png");
+        if(frame%6==5)
+            pacman.load("pacmanL1.png");
+    }
+    else
+        pacman.load("pacmanL.png");
+}
+if(direct == 'U'){
+    if(boardData[row-1][col]>0){
+        if(frame%6==0)
+            pacman.load("pacmanClosed.png");
+        if(frame%6==1)
+            pacman.load("pacmanU1.png");
+        if(frame%6==2)
+            pacman.load("pacmanU2.png");
+        if(frame%6==3)
+            pacman.load("pacmanU.png");
+        if(frame%6==4)
+            pacman.load("pacmanU2.png");
+        if(frame%6==5)
+            pacman.load("pacmanU1.png");
+    }
+    else
+         pacman.load("pacmanU.png");
+}
+if(direct == 'D'){
+    if(boardData[row+1][col]>0){
+        if(frame%6==0)
+            pacman.load("pacmanClosed.png");
+        if(frame%6==1)
+            pacman.load("pacmanD1.png");
+        if(frame%6==2)
+            pacman.load("pacmanD2.png");
+        if(frame%6==3)
+            pacman.load("pacmanD.png");
+        if(frame%6==4)
+            pacman.load("pacmanD2.png");
+        if(frame%6==5)
+            pacman.load("pacmanD1.png");
+    }
+    else
+        pacman.load("pacmanD.png");
+}
+    frame++;
+    pacman = pacman.scaledToWidth(blockDim);
+    pacman = pacman.scaledToHeight(blockDim);
+    setPixmap(pacman);
 }
