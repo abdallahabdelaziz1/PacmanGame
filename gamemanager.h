@@ -38,10 +38,12 @@ private:
     int margin = 30; //margin from the board to the view borders, it will be the same from all sides for simplicity
     int sceneDim = 31*blockDim + 2*margin; //this is the dimension of the scene, the length and width of the scene, it will be a square for simplicity
     QTimer *timer;
+     QTimer *timerGhostState;
     bool started = false;
 private slots:
     void keyPressEvent(QKeyEvent *event); //override()
     void advance();
+    void ghostStateTimeout();
     void resetGame();
 public:
     GameManager();

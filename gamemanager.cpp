@@ -26,9 +26,12 @@ GameManager::GameManager()
     timer=new QTimer(this);
     connect(timer, SIGNAL(timeout()),this, SLOT(advance()));
 
+    timerGhostState=new QTimer(this);
+    connect(timerGhostState, SIGNAL(timeout()),this, SLOT(ghostStateTimeout()));
+
 
     //The game manager will initialize the game
-boardInstance=new board(scene);
+    boardInstance=new board(scene);
 
    // boardInstance->show(); //show the board
 
@@ -145,6 +148,10 @@ void GameManager::keyPressEvent(QKeyEvent *event)
 
 void GameManager::advance(){
 
+
+
+
+
     QList<QGraphicsItem*> collidedItems = pacman->collidingItems();
     for(int i=0; i < collidedItems.size(); i++){
         if( typeid(*collidedItems[i]) == typeid(smallPellets)){
@@ -159,6 +166,8 @@ void GameManager::advance(){
             PinkyInstant->escape();
             BlinkyInstant->changestate();
             BlinkyInstant->escape();
+            timerGhostState->start(8000);
+
         }else if(typeid(*collidedItems[i]) == typeid(Inky)){
             if(InkyInstant->getAttackingState() == 0){
                 //Ghost is eaten
@@ -200,6 +209,20 @@ void GameManager::advance(){
 
 
 
+}
+
+void GameManager::ghostStateTimeout(){
+    if(InkyInstant->getAttackingState() != 1){
+        InkyInstant->ReturnOriginalState();
+    }
+    if(PinkyInstant->getAttackingState() != 1){
+        PinkyInstant->ReturnOriginalState();
+    }
+    if(BlinkyInstant->getAttackingState() != 1){
+        BlinkyInstant->ReturnOriginalState();
+    }
+
+    timerGhostState->stop();
 }
 
 void GameManager::resetGame(){
