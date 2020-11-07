@@ -32,5 +32,6 @@ public:
     void changedir(char dir);       //changes direction and image. Takes 'U', 'D', 'R' or 'L' as an argument;
     void changestate();             //changes between invencible and normal states
     bool isinvecible();             //returns true if invencible //interchangable with ghoast state (may not be needed)
+    void reset();                   //returns pacman to spawn
 };
 #endif // PLAYER_H

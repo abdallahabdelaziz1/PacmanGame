@@ -34,9 +34,16 @@ void player::move()
     else if (direct == 'D'&&boardData[row+1][col]>0)
         row++;
     else if (direct == 'L'&& boardData[row][col-1]>0)
-        col--;
+    {col--;
+        if (col == 0)
+            col = TotalColumns-1;
+    }
     else if (boardData[row][col+1]>0)
+    {
         col++;
+        if (col == TotalColumns-1)
+            col = 0;
+    }
     setPos(blockDim*col+margin, blockDim*row+margin);
 }
 
@@ -63,4 +70,10 @@ void player::changestate(){
 
 bool player::isinvecible(){
     return invencible;
+}
+
+void player::reset(){
+    row = spawnrow;
+    col = spawncol;
+    setPos(blockDim*col+margin, blockDim*row+margin);
 }

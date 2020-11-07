@@ -90,9 +90,6 @@ GameManager::GameManager(QWidget *parent)
    boardInstance.scene()->addItem(gamestate);
    boardInstance.scene()->addItem(currentscore);
 
-
-
-
 }
 
 GameManager::~GameManager()
