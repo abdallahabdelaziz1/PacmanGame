@@ -33,12 +33,12 @@ void player::move()
         row--;
     else if (direct == 'D'&&boardData[row+1][col]>0)
         row++;
-    else if (direct == 'L'&& boardData[row][col-1]>0)
+    else if (direct == 'L'&& (col-1==-1 || boardData[row][col-1]>0))
     {col--;
         if (col == -1)//shouldn't it be -1?? not 0
             col = TotalColumns-1;
     }
-    else if (direct=='R' && boardData[row][col+1]>0)//you must add the condition R
+    else if (direct=='R' && (col+1==TotalColumns||boardData[row][col+1]>0))//you must add the condition R
     {
         col++;
         if (col == TotalColumns)//should be totoal columns not, total -1

@@ -35,12 +35,12 @@ if(q==0 && boardData[row-1][column]>0){
 else if(q==1 && boardData[row+1][column]>0){
     row++;//down
 }
-else if(q==2  && boardData[row][column+1]>0){
+else if(q==2  && (column+1==TotalColumns||boardData[row][column+1]>0)){
     column++;//right
     if (column == TotalColumns)//handling portal
         column = 0;
 }
-else if(q==3 && boardData[row][column-1]>0){
+else if(q==3 && (column-1==-1 || boardData[row][column-1]>0)){
      column--;//left
      if(column==-1)//handling portal
          column=TotalColumns-1;
