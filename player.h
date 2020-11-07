@@ -14,7 +14,7 @@ class player : public QObject, public QGraphicsPixmapItem
 private:
     const int TotalRows=31;
     const int TotalColumns=28;
-    const int spawnrow =23;
+    const int spawnrow = 23;
     const int spawncol = 13;
     int row=23;
     int col=13;

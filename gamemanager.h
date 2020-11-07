@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include<QGraphicsView>
+#include <QTimer>
 #include "board.h"
 #include "smallpellets.h"
 #include "powerpellets.h"
@@ -35,10 +36,11 @@ private:
     int blockDim = 20; //the length and width of each row and column in pixels (dimensions of each row and col in pixels)
     int margin = 30; //margin from the board to the view borders, it will be the same from all sides for simplicity
     int sceneDim = 31*blockDim + 2*margin; //this is the dimension of the scene, the length and width of the scene, it will be a square for simplicity
-
+    QTimer *timer;
+    bool started = false;
 private slots:
     void keyPressEvent(QKeyEvent *event); //override()
-
+    void advance();
 public:
     GameManager();
     ~GameManager();

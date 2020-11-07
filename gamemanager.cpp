@@ -1,14 +1,6 @@
 
 #include "gamemanager.h"
 
-void GameManager::keyPressEvent(QKeyEvent *event)
-{
-    if (event->key() == Qt::Key_Space)
-    {
-       scene->removeItem(gamestate);
-    }
-}
-
 GameManager::GameManager()
 
 {
@@ -31,6 +23,8 @@ GameManager::GameManager()
      //   this->setScene(&gameScene);
 
 
+    timer=new QTimer(this);
+    connect(timer, SIGNAL(timeout()),this, SLOT(advance()));
 
 
     //The game manager will initialize the game
@@ -120,6 +114,40 @@ boardInstance=new board(scene);
    scene->addItem(gamestate);
    scene->addItem(currentscore);
 
+}
+
+
+void GameManager::keyPressEvent(QKeyEvent *event)
+{
+
+    if (event->key() == Qt::Key_Space && !started)
+    {
+       scene->removeItem(gamestate);
+       timer->start(90);
+       started=true;
+    }
+    if(started){
+    if (event->key() == Qt::Key_Up)
+    {
+       pacman->changedir('U');
+    }
+    if (event->key() == Qt::Key_Down){
+        pacman->changedir('D');
+    }
+    if (event->key() == Qt::Key_Right){
+        pacman->changedir('R');
+    }
+    if (event->key() == Qt::Key_Left){
+        pacman->changedir('L');
+    }
+}
+}
+
+void GameManager::advance(){
+    InkyInstant->FollowPaceman();
+    PinkyInstant->FollowPaceman();
+    BlinkyInstant->FollowPaceman();
+    pacman->move();
 }
 
 GameManager::~GameManager()

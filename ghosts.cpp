@@ -7,7 +7,7 @@ Ghosts::Ghosts(int** temp)
         boardData[i]=new int[TotalColumns];
     }
 
-    for(int i=0;i<TotalColumns;i++){
+    for(int i=0;i<TotalRows;i++){
         for(int j=0;j<TotalColumns;j++){
          boardData[i][j]=temp[i][j];
 

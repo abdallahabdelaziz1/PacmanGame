@@ -12,13 +12,12 @@ player::player(int** temp) {
         boardData[i]=new int[TotalColumns];
     }
 
-    for(int i=0;i<TotalColumns;i++){
+    for(int i=0;i<TotalRows;i++){
         for(int j=0;j<TotalColumns;j++){
          boardData[i][j]=temp[i][j];
 
         }
     }
-
 }
 int player::getRow() {
     return row;
@@ -29,11 +28,13 @@ int player::getCol() {
 
 void player::move()
 {
-    if(direct == 'U'&& boardData[row-1][col]>0)
+    if(direct == 'U' && boardData[row-1][col]>0){
         row--;
-    else if (direct == 'D'&&boardData[row+1][col]>0)
+    }
+    else if (direct == 'D'&& boardData[row+1][col]>0){
         row++;
-    else if (direct == 'L'&& (col-1==-1 || boardData[row][col-1]>0))
+    }
+    else if (direct == 'L' && (col-1==-1 || boardData[row][col-1]>0))
     {col--;
         if (col == -1)//shouldn't it be -1?? not 0
             col = TotalColumns-1;
