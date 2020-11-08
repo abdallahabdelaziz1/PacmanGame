@@ -61,6 +61,15 @@ void player::move()
       }
 
 
+    if(col+1 == 28){
+        col = 1;
+        Xpos = blockDim*col+margin;
+    }else if(col-1 == -1){
+        col = 26;
+        Xpos = blockDim*col+margin;
+    }
+
+
 
 
       if(tempDirect == 'U' && ( (boardData[row-1][col]>0)  || (Ypos != blockDim*(row)+margin))){
@@ -91,8 +100,6 @@ void player::move()
 
           if (col == TotalColumns)//should be totoal columns not, total -1
               col = 0;
-
-
       }
 
       setPos(Xpos, Ypos);
