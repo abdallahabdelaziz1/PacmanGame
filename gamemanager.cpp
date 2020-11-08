@@ -10,11 +10,12 @@ GameManager::GameManager()
     this->setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
     this->setScene(scene);
         //1-)Create the view and the scene
-        //
-        //this->setWindowTitle("Pacman Game");
-       // this->setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern)); //this changes the background color to black
-     //   this->setScene(&gameScene);
 
+     //this->setWindowTitle("Pacman Game");
+     //this->setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern)); //this changes the background color to black
+     //this->setScene(&gameScene);
+
+    srand(time(NULL));
 
     timer=new QTimer(this);
     connect(timer, SIGNAL(timeout()),this, SLOT(advance()));
@@ -22,11 +23,11 @@ GameManager::GameManager()
     timerGhostState=new QTimer(this);
     connect(timerGhostState, SIGNAL(timeout()),this, SLOT(ghostStateTimeout()));
 
+    timerFruit=new QTimer(this);
+    connect(timerFruit, SIGNAL(timeout()),this, SLOT(createFruit()));
 
     //The game manager will initialize the game
     boardInstance=new board(scene);
-
-   // boardInstance->show(); //show the board
 
 
     //the smallpellets will be from 01 to 94 except for 31 & 36 then from 186 to 309 except for 243 & 264
@@ -43,17 +44,17 @@ GameManager::GameManager()
     for(int i=0; i<31; i++){
         for(int j=0; j<28; j++){
             if( boardInstance->getBoardData(i,j) > 0 && boardInstance->getBoardData(i,j) < 106 && boardInstance->getBoardData(i,j) != 31 && boardInstance->getBoardData(i,j) != 36){
-                smallPelletsarr[tempItr].setPos(20*j + 30, 20*i + 30);
+                smallPelletsarr[tempItr].setPos(blockDim*j + margin, blockDim*i + margin);
                 scene->addItem(&smallPelletsarr[tempItr]);
                 tempItr++;
             }else if(boardInstance->getBoardData(i,j) > 185 && boardInstance->getBoardData(i,j) < 310 && boardInstance->getBoardData(i,j) != 222 && boardInstance->getBoardData(i,j) != 243){
-                smallPelletsarr[tempItr].setPos(20*j + 30, 20*i + 30);
+                smallPelletsarr[tempItr].setPos(blockDim*j + margin, blockDim*i + margin);
                 scene->addItem(&smallPelletsarr[tempItr]);
                 tempItr++;
             }else{
                 for(int k=0; k<20; k++){
                     if(tempArr[k] == boardInstance->getBoardData(i,j)){
-                        smallPelletsarr[tempItr].setPos(20*j + 30, 20*i + 30);
+                        smallPelletsarr[tempItr].setPos(blockDim*j + margin, blockDim*i + margin);
                        scene->addItem(&smallPelletsarr[tempItr]);
                         tempItr++;
                     }
@@ -62,7 +63,7 @@ GameManager::GameManager()
 
 
             if(boardInstance->getBoardData(i,j) == 31 || boardInstance->getBoardData(i,j) == 36 || boardInstance->getBoardData(i,j) == 243 || boardInstance->getBoardData(i,j) == 222 ){
-                powerPelletsarr[tempItr2].setPos(20*j + 30, 20*i + 30);
+                powerPelletsarr[tempItr2].setPos(blockDim*j + margin, blockDim*i + margin);
                 scene->addItem(&powerPelletsarr[tempItr2]);
                 tempItr2++;
             }
@@ -121,9 +122,12 @@ void GameManager::keyPressEvent(QKeyEvent *event)
     if (event->key() == Qt::Key_Space && !started)
     {
        scene->removeItem(gamestate);
-       timer->start(200);
+       timer->start(20);
        started=true;
        pacman->startanim();
+       int temp = (qrand()%5) + 11;
+       timerFruit->start(1000*temp); //the fruit will appear after 10 to 15 seconds, we can make this random
+
     }
     if(started){
     if (event->key() == Qt::Key_Up)
@@ -195,6 +199,10 @@ void GameManager::advance(){
             }
         }else if(typeid(*collidedItems[i]) == typeid(fruit)){
                 scene->removeItem(collidedItems[i]);
+                fruit::increaseCount();
+                playerScore += fruitInstance.getValue();
+                int tempT = (qrand()%5) + 11;
+                timerFruit->start(1000*tempT);
         }
     }
 
@@ -206,9 +214,9 @@ void GameManager::advance(){
     pacman->move();
 
 
-
-
 }
+
+
 
 void GameManager::ghostStateTimeout(){
     if(InkyInstant->getAttackingState() != 1){
@@ -230,6 +238,28 @@ void GameManager::resetGame(){
     BlinkyInstant->ReturnHome();
     pacman->reset();
     pacstate->normalstate();
+}
+
+void GameManager::createFruit()
+{
+    //set sprite, set pos, add item
+    fruitInstance.setRandSprite();
+
+    //set pos
+    int tempR = qrand()%31;
+    int tempC = qrand()%28;
+    while(boardInstance->getBoardData(tempR, tempC) < 0){
+        tempR = qrand()%31;
+        tempC = qrand()%28;
+    }
+    fruitInstance.setPos(blockDim*tempC + margin, blockDim*tempR + margin);
+
+    //add it to the scene
+    scene->addItem(&fruitInstance);
+
+    //calling the timer again but with a different value
+    int tempT = (qrand()%5) + 11;
+    timerFruit->start(1000*tempT);
 }
 
 GameManager::~GameManager()

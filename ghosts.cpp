@@ -29,27 +29,53 @@ void Ghosts::FollowPaceman()
 {
 //the motion here will be random, and will be overrided by algorithmic motion in child classes in the next milestone
 
-int q=qrand()%4;
-if(q==0 && boardData[row-1][column]>0){
-    row--; //up
-}
-else if(q==1 && boardData[row+1][column]>0){
-    row++;//down
-}
-else if(q==2  && (column+1==TotalColumns||boardData[row][column+1]>0)){
-    column++;//right
-    if (column == TotalColumns)//handling portal
-        column = 0;
-}
-else if(q==3 && (column-1==-1 || boardData[row][column-1]>0)){
-     column--;//left
-     if(column==-1)//handling portal
-         column=TotalColumns-1;
-}
+    moveCounter++;
+    if(moveCounter == 1){
+        q=qrand()%4;
+    }
 
+    if(q==0 && boardData[row-1][column]>0){
 
-SETPOS(row, column);
+        if(moveCounter > rowsPerSpeed){
+            moveCounter = 0;
+            row--;
+        }
+        setPos( (blockDim*column+margin) , (blockDim*row+margin) - speed*moveCounter );
 
+    }
+    else if(q==1 && boardData[row+1][column]>0){
+
+        if(moveCounter > rowsPerSpeed){
+            moveCounter = 0;
+            row++;//down
+        }
+        setPos( (blockDim*column+margin) , (blockDim*row+margin) + speed*moveCounter );
+
+    }
+    else if(q==2  && (column+1==TotalColumns||boardData[row][column+1]>0)){
+
+        if(moveCounter > rowsPerSpeed){
+            moveCounter = 0;
+            column++;//right
+            if (column == TotalColumns)//handling portal
+                column = 0;
+        }
+        setPos( (blockDim*column+margin) + speed*moveCounter, (blockDim*row+margin)  );
+
+    }
+    else if(q==3 && (column-1==-1 || boardData[row][column-1]>0)){
+
+        if(moveCounter > rowsPerSpeed){
+            moveCounter = 0;
+            column--;//left
+            if(column==-1)//handling portal
+                column=TotalColumns-1;
+        }
+        setPos( (blockDim*column+margin) - speed*moveCounter, (blockDim*row+margin)  );
+
+    }else{
+        q=qrand()%4;
+    }
 }
 
 void Ghosts::changestate()

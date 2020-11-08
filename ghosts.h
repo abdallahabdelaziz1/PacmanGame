@@ -19,6 +19,7 @@ public:
     bool getAttackingState();
     void SETPOS(int r, int c);//chang the position of the ghose
 
+
 protected:
     const int TotalRows=31;
     const int TotalColumns=28;
@@ -29,6 +30,10 @@ protected:
     int margin = 30;
     QPixmap sprite;
     int** boardData;
+    float speed = 2; //need to be a divisor of blockDim so that rowPerSpeed is an integer.
+    float rowsPerSpeed = blockDim / speed;
+    int moveCounter = 0;
+    int q=0;
 
     bool AttackingState;  //state=1: he can attack, else he can't
 

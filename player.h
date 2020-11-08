@@ -20,9 +20,15 @@ private:
     int row=23;
     int col=13;
     char direct = 'R';
+    char tempDirect = 'R';
     bool invencible=false;
     int blockDim = 20;
     int margin = 30;
+    int speed = 2; //need to be a divisor of blockDim so that rowPerSpeed is an integer.
+    int Xpos = blockDim*col+margin;
+    int Ypos = blockDim*row+margin;
+    int tempRow;
+    int tempCol;
     QPixmap pacman;
     int** boardData;
     QTimer* mouthanim;

@@ -26,7 +26,7 @@ private:
     board *boardInstance;
     smallPellets smallPelletsarr[244]; //better be dynamic?
     powerPellets powerPelletsarr[4];
-    fruit fruitInsatnce;
+    fruit fruitInstance;
     QGraphicsScene * scene;
     Inky *InkyInstant;
     Pinky *PinkyInstant;
@@ -41,6 +41,7 @@ private:
     int sceneDim = 31*blockDim + 2*margin; //this is the dimension of the scene, the length and width of the scene, it will be a square for simplicity
     QTimer *timer;
     QTimer *timerGhostState;
+    QTimer *timerFruit;
     bool started = false;
     state* pacstate;
     int tenkcount=1;
@@ -50,6 +51,8 @@ private slots:
     void advance();
     void ghostStateTimeout();
     void resetGame();
+    void createFruit();
+
 public:
     GameManager();
     ~GameManager();
