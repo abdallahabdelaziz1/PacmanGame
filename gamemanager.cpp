@@ -238,6 +238,7 @@ void GameManager::resetGame(){
     BlinkyInstant->ReturnHome();
     pacman->reset();
     pacstate->normalstate();
+
 }
 
 void GameManager::createFruit()

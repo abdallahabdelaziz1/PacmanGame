@@ -167,7 +167,11 @@ bool player::isinvecible(){
 void player::reset(){
     row = spawnrow;
     col = spawncol;
-    setPos(blockDim*col+margin, blockDim*row+margin);
+    Xpos = blockDim*col+margin;
+    Ypos = blockDim*row+margin;
+    tempRow = row;
+    tempCol = col;
+    setPos(Xpos, Ypos);
 }
 
 void player::startanim()
