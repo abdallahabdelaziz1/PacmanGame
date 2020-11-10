@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QGraphicsTextItem>
 #include <QFont>
+#include<QTimer>
 
 class text : public QGraphicsTextItem
 {
@@ -12,9 +13,17 @@ class text : public QGraphicsTextItem
 protected:
  //   QFont font; this should be removed Abdallah? Sah?
     QString display;
+    QTimer* gameovertimer;
+    QTimer* wintimer;
+    QFont *arcade;
+private slots:
+    void ChangeToContinue();
+    void ChangeToRepeat();
 public:
     text();                           //initiated at teh begining of the game and shows the word "READY!" on screen.
     void lost();                      //switches form "READY!" to "GAME OVER"
+    void won();
+
 };
 
 #endif // TEXT_H

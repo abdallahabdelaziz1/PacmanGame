@@ -45,6 +45,7 @@ private:
     bool started = false;
     state* pacstate;
     int tenkcount=1;
+    int UneatenPellets=248;
 
 private slots:
     void keyPressEvent(QKeyEvent *event); //override()

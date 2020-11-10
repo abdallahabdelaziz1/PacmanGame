@@ -33,3 +33,9 @@ void lives::addlive(){
     num++;
 
 }
+
+bool lives::Died()
+{
+    return num==1;
+
+}

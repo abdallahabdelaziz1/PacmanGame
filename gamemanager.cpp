@@ -94,6 +94,7 @@ GameManager::GameManager()
    pacman = new player(boardInstance->getBoardPointer());
    remlives = new lives(scene);
    gamestate = new text;
+
    currentscore = new score;
    pacstate = new state;
    scene->addItem(pacstate);
@@ -110,6 +111,7 @@ void GameManager::keyPressEvent(QKeyEvent *event)
 
     if (event->key() == Qt::Key_Space && !started)
     {
+
        scene->removeItem(gamestate);
        timer->start(20);
        started=true;
@@ -118,7 +120,7 @@ void GameManager::keyPressEvent(QKeyEvent *event)
        timerFruit->start(1000*temp); //the fruit will appear after 10 to 15 seconds, we can make this random
 
     }
-    if(started){
+    if(started  && !remlives->Died()){
     if (event->key() == Qt::Key_Up)
     {
        pacman->changedir('U');
@@ -132,7 +134,8 @@ void GameManager::keyPressEvent(QKeyEvent *event)
     if (event->key() == Qt::Key_Left){
         pacman->changedir('L');
     }
-}
+    }
+
 }
 
 void GameManager::advance(){
@@ -148,10 +151,12 @@ void GameManager::advance(){
         if( typeid(*collidedItems[i]) == typeid(smallPellets)){
             scene->removeItem(collidedItems[i]);
             playerScore += smallPelletsarr[0].getValue();
+            UneatenPellets--;
         }else if(typeid(*collidedItems[i]) == typeid(powerPellets)){
             scene->removeItem(collidedItems[i]);
+            UneatenPellets--;
 
-            InkyInstant->SetValue();//sets value to 200
+            Ghosts::SetValue();//sets value to 200
             pacstate->invenciblestate();
             playerScore += powerPelletsarr[0].getValue();
             InkyInstant->changestate();
@@ -198,14 +203,33 @@ void GameManager::advance(){
                 int tempT = (qrand()%5) + 11;
                 timerFruit->start(1000*tempT);
         }
+
     }
 
     currentscore->updatescore(playerScore);
 
+    if(remlives->Died()){
+        gamestate->lost();
+        scene->addItem(gamestate);
+        timer->stop();
+        timerFruit->stop();
+        pacman->endanim();
+    }
+    else if(UneatenPellets==0){
+        gamestate->won();
+        scene->addItem(gamestate);
+        timer->stop();
+        timerFruit->stop();
+        pacman->endanim();
+        resetGame();
+    }
+    else{
     InkyInstant->FollowPaceman();
     PinkyInstant->FollowPaceman();
     BlinkyInstant->FollowPaceman();
     pacman->move();
+    }
+
 
 
 }

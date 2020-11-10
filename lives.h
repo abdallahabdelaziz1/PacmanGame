@@ -20,7 +20,8 @@ public:
    lives(QGraphicsScene* scene, int n = 3);          //takes the scene as an argument and an optional number of lives (default 3)
    int getnumlives();                                //returns remaining lives
    void loselife();
-   void addlive();                                   //should be called when score reaches 10 000
+   void addlive();//should be called when score reaches 10 000
+   bool Died();
 };
 
 #endif // LIVES_H
