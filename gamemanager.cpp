@@ -70,7 +70,6 @@ void GameManager::keyPressEvent(QKeyEvent *event)
 
     if (event->key() == Qt::Key_Space && !started)
     {
-
        started=true;
        StartAgain();
 
@@ -83,9 +82,9 @@ void GameManager::keyPressEvent(QKeyEvent *event)
            playerScore=0;
             tenkcount=1;
             currentscore->updatescore(0);
-            remlives->addlive();
-            remlives->addlive();
-
+            remlives->addliveWithPhoto();
+            remlives->addliveWithPhoto();
+            remlives->addliveWithoutphoto();
 
         }
         else if(event->key()==Qt::Key_N){
@@ -101,7 +100,7 @@ void GameManager::keyPressEvent(QKeyEvent *event)
         }
 
     }
-    else if(started  ){
+    else if(started){
     if (event->key() == Qt::Key_Up)
     {
        pacman->changedir('U');
@@ -125,7 +124,7 @@ void GameManager::advance(){
     //adding a life everytime the player gains 10,000 points
     if(playerScore/10000==tenkcount){
         //qDebug()<<playerScore/10000;
-        remlives->addlive();
+        remlives->addliveWithPhoto();
         tenkcount++;
     }
 
@@ -148,7 +147,7 @@ void GameManager::advance(){
             PinkyInstant->escape();
             BlinkyInstant->changestate();
             BlinkyInstant->escape();
-            timerGhostState->start(10000);
+            timerGhostState->start(9000);
 
         }else if(typeid(*collidedItems[i]) == typeid(Inky)){
             if(InkyInstant->getAttackingState() == 0){
@@ -192,7 +191,7 @@ void GameManager::advance(){
     currentscore->updatescore(playerScore);
 
     if(remlives->Died()){
-        resetGame();
+
         gamestate->lost();
         scene->addItem(gamestate);
         timer->stop();

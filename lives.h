@@ -16,12 +16,14 @@ private:
     QGraphicsScene* savedscene;
     int blockDim = 20;
     int margin = 30;
+
 public:
    lives(QGraphicsScene* scene, int n = 3);          //takes the scene as an argument and an optional number of lives (default 3)
    int getnumlives();                                //returns remaining lives
    void loselife();
-   void addlive();//should be called when score reaches 10 000
+   void addliveWithPhoto();//should be called when score reaches 10 000
    bool Died();
+   void addliveWithoutphoto();
 };
 
 #endif // LIVES_H

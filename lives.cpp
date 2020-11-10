@@ -26,16 +26,23 @@ int lives::getnumlives(){
     return num;
 }
 
-void lives::addlive(){
-    shapes[num-1].setPixmap(icon);
-    shapes[num-1].setPos(margin+blockDim*(num-1), 31*blockDim+ margin);
-    savedscene->addItem(&shapes[num-1]);
+void lives::addliveWithPhoto(){
     num++;
+
+        shapes[num-1].setPixmap(icon);
+        shapes[num-1].setPos(margin+blockDim*(num-1), 31*blockDim+ margin);
+        savedscene->addItem(&shapes[num-1]);
+
 
 }
 
 bool lives::Died()
 {
-    return num==1;
+    return num==0;
 
+}
+
+void lives::addliveWithoutphoto()
+{
+    num++;
 }
