@@ -2,6 +2,7 @@
 #define LIVES_H
 
 #include <QObject>
+#include<QVector>
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 #include <QGraphicsScene>
@@ -11,7 +12,7 @@ class lives : public QObject
     Q_OBJECT
 private:
     int num;
-    QGraphicsPixmapItem* shapes;
+    QVector<QGraphicsPixmapItem*>  shapes;
     QPixmap icon;
     QGraphicsScene* savedscene;
     int blockDim = 20;

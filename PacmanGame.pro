@@ -30,6 +30,7 @@ SOURCES += \
     powerpellets.cpp \
     score.cpp \
     smallpellets.cpp \
+    sounds.cpp \
     state.cpp \
     text.cpp
 
@@ -47,6 +48,7 @@ HEADERS += \
     powerpellets.h \
     score.h \
     smallpellets.h \
+    sounds.h \
     state.h \
     text.h
 

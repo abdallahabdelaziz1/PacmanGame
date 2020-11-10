@@ -3,6 +3,7 @@
 lives::lives(QGraphicsScene* scene, int n)
 {
     shapes = new QGraphicsPixmapItem[10];
+
     QPixmap playerImage("pacmanR.png");
     playerImage = playerImage.scaledToWidth(blockDim);
     playerImage = playerImage.scaledToHeight(blockDim);
@@ -16,6 +17,7 @@ lives::lives(QGraphicsScene* scene, int n)
     num = n;
     savedscene = scene;
 }
+
 void lives::loselife(){
     if(num-2>=0)
         shapes[0].scene()->removeItem(&shapes[num-2]); //he tried to remove shape[0] and it doesn't exist
@@ -29,7 +31,6 @@ int lives::getnumlives(){
 void lives::addliveWithPhoto(){
 
     num++;
-
     if(num-2 >= 0){
         shapes[num-2].setPixmap(icon);
         shapes[num-2].setPos(margin+blockDim*(num-2), 31*blockDim+ margin);
@@ -37,6 +38,7 @@ void lives::addliveWithPhoto(){
     }
 
 }
+
 
 bool lives::Died()
 {
