@@ -57,8 +57,8 @@ void Ghosts::FollowPaceman()
         if(moveCounter > rowsPerSpeed){
             moveCounter = 0;
             column++;//right
-            if (column == TotalColumns)//handling portal
-                column = 0;
+            if (column == (TotalColumns-1))//handling portal
+                column = 1;
         }
         setPos( (blockDim*column+margin) + speed*moveCounter, (blockDim*row+margin)  );
 
@@ -68,8 +68,8 @@ void Ghosts::FollowPaceman()
         if(moveCounter > rowsPerSpeed){
             moveCounter = 0;
             column--;//left
-            if(column==-1)//handling portal
-                column=TotalColumns-1;
+            if(column==0)//handling portal
+                column=TotalColumns-2;
         }
         setPos( (blockDim*column+margin) - speed*moveCounter, (blockDim*row+margin)  );
 
