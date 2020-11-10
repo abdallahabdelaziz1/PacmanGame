@@ -18,7 +18,7 @@ lives::lives(QGraphicsScene* scene, int n)
 }
 void lives::loselife(){
     if(num-2>=0)
-        shapes[0].scene()->removeItem(&shapes[num-2]);
+        shapes[0].scene()->removeItem(&shapes[num-2]); //he tried to remove shape[0] and it doesn't exist
     num--;
 }
 
@@ -27,12 +27,14 @@ int lives::getnumlives(){
 }
 
 void lives::addliveWithPhoto(){
+
     num++;
 
-        shapes[num-1].setPixmap(icon);
-        shapes[num-1].setPos(margin+blockDim*(num-1), 31*blockDim+ margin);
-        savedscene->addItem(&shapes[num-1]);
-
+    if(num-2 >= 0){
+        shapes[num-2].setPixmap(icon);
+        shapes[num-2].setPos(margin+blockDim*(num-2), 31*blockDim+ margin);
+        savedscene->addItem(&shapes[num-2]);
+    }
 
 }
 

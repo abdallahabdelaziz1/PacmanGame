@@ -10,6 +10,7 @@ public:
         countEaten++;
     }
     void setRandSprite();
+    static void resetCount();
 
 private:
     static int countEaten;

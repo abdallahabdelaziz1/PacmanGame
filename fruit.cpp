@@ -32,6 +32,11 @@ void fruit::setRandSprite()
     setPixmap(sprite);
 }
 
+void fruit::resetCount()
+{
+    countEaten = 0;
+}
+
 
 
 
