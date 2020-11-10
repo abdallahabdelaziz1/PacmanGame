@@ -46,12 +46,14 @@ private:
     state* pacstate;
     int tenkcount=1;
     int UneatenPellets=248;
+     void resetGame();
+     void fillPellets();
+     void StartAgain();
 
 private slots:
     void keyPressEvent(QKeyEvent *event); //override()
     void advance();
     void ghostStateTimeout();
-    void resetGame();
     void createFruit();
 
 public:

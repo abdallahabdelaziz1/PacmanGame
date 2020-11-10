@@ -29,49 +29,8 @@ GameManager::GameManager()
     //The game manager will initialize the game
     boardInstance=new board(scene);
 
-
-    //the smallpellets will be from 01 to 94 except for 31 & 36 then from 186 to 309 except for 243 & 264
-    //and these positions : 95, 105, 106, 109, 110, 113, 114, 125, 126, 131, 138, 151, 158, 161, 162, 173, 174, 177, 178, 181, 182, 185
-    //1-) we can get boarddata from board class and check which i,j is suitable to set pos for small pellets.
-    //2-) we can set boardimages to smallpellets and set position of boardimages. we will also have to use boardData.
-    //I will use the first method!
-
-    int tempArr[] ={ 106, 109, 110, 113, 114, 125, 126, 131, 138, 151, 158, 161, 162, 173, 174, 177, 178, 181, 182, 185};
-
-    //TO DO: should set blockDim and margin and use them instead of 20 and 20 in here
-    int tempItr = 0 ;
-    int tempItr2= 0;
-    for(int i=0; i<31; i++){
-        for(int j=0; j<28; j++){
-            if( boardInstance->getBoardData(i,j) > 0 && boardInstance->getBoardData(i,j) < 106 && boardInstance->getBoardData(i,j) != 31 && boardInstance->getBoardData(i,j) != 36){
-                smallPelletsarr[tempItr].setPos(blockDim*j + margin, blockDim*i + margin);
-                scene->addItem(&smallPelletsarr[tempItr]);
-                tempItr++;
-            }else if(boardInstance->getBoardData(i,j) > 185 && boardInstance->getBoardData(i,j) < 310 && boardInstance->getBoardData(i,j) != 222 && boardInstance->getBoardData(i,j) != 243){
-                smallPelletsarr[tempItr].setPos(blockDim*j + margin, blockDim*i + margin);
-                scene->addItem(&smallPelletsarr[tempItr]);
-                tempItr++;
-            }else{
-                for(int k=0; k<20; k++){
-                    if(tempArr[k] == boardInstance->getBoardData(i,j)){
-                        smallPelletsarr[tempItr].setPos(blockDim*j + margin, blockDim*i + margin);
-                       scene->addItem(&smallPelletsarr[tempItr]);
-                        tempItr++;
-                    }
-                }
-            }
-
-
-            if(boardInstance->getBoardData(i,j) == 31 || boardInstance->getBoardData(i,j) == 36 || boardInstance->getBoardData(i,j) == 243 || boardInstance->getBoardData(i,j) == 222 ){
-                powerPelletsarr[tempItr2].setPos(blockDim*j + margin, blockDim*i + margin);
-                scene->addItem(&powerPelletsarr[tempItr2]);
-                tempItr2++;
-            }
-
-        }
-    }
-
-
+    //fillpellets on the scene
+    fillPellets();
 
 
 //adding the ghosts to the scene
@@ -112,15 +71,37 @@ void GameManager::keyPressEvent(QKeyEvent *event)
     if (event->key() == Qt::Key_Space && !started)
     {
 
-       scene->removeItem(gamestate);
-       timer->start(20);
        started=true;
-       pacman->startanim();
-       int temp = (qrand()%5) + 11;
-       timerFruit->start(1000*temp); //the fruit will appear after 10 to 15 seconds, we can make this random
+       StartAgain();
 
     }
-    if(started  && !remlives->Died()){
+
+    if(remlives->Died()){
+
+        if(event->key()==Qt::Key_Y){
+           StartAgain();
+           playerScore=0;
+            tenkcount=1;
+            currentscore->updatescore(0);
+            remlives->addlive();
+            remlives->addlive();
+
+
+        }
+        else if(event->key()==Qt::Key_N){
+            this->close();
+        }
+    }
+    else if(UneatenPellets==0){
+        if(event->key()==Qt::Key_Y){
+           StartAgain();
+        }
+        else if(event->key()==Qt::Key_N){
+            this->close();
+        }
+
+    }
+    else if(started  ){
     if (event->key() == Qt::Key_Up)
     {
        pacman->changedir('U');
@@ -135,6 +116,8 @@ void GameManager::keyPressEvent(QKeyEvent *event)
         pacman->changedir('L');
     }
     }
+
+
 
 }
 
@@ -209,6 +192,7 @@ void GameManager::advance(){
     currentscore->updatescore(playerScore);
 
     if(remlives->Died()){
+        resetGame();
         gamestate->lost();
         scene->addItem(gamestate);
         timer->stop();
@@ -259,6 +243,66 @@ void GameManager::resetGame(){
     BlinkyInstant->ReturnHome();
     pacman->reset();
     pacstate->normalstate();
+
+}
+
+void GameManager::fillPellets()
+{
+    UneatenPellets=248;
+    //the smallpellets will be from 01 to 94 except for 31 & 36 then from 186 to 309 except for 243 & 264
+    //and these positions : 95, 105, 106, 109, 110, 113, 114, 125, 126, 131, 138, 151, 158, 161, 162, 173, 174, 177, 178, 181, 182, 185
+    //1-) we can get boarddata from board class and check which i,j is suitable to set pos for small pellets.
+    //2-) we can set boardimages to smallpellets and set position of boardimages. we will also have to use boardData.
+    //I will use the first method!
+
+    int tempArr[] ={ 106, 109, 110, 113, 114, 125, 126, 131, 138, 151, 158, 161, 162, 173, 174, 177, 178, 181, 182, 185};
+
+    //TO DO: should set blockDim and margin and use them instead of 20 and 20 in here
+    int tempItr = 0 ;
+    int tempItr2= 0;
+    for(int i=0; i<31; i++){
+        for(int j=0; j<28; j++){
+            if( boardInstance->getBoardData(i,j) > 0 && boardInstance->getBoardData(i,j) < 106 && boardInstance->getBoardData(i,j) != 31 && boardInstance->getBoardData(i,j) != 36){
+                smallPelletsarr[tempItr].setPos(blockDim*j + margin, blockDim*i + margin);
+                scene->addItem(&smallPelletsarr[tempItr]);
+                tempItr++;
+            }else if(boardInstance->getBoardData(i,j) > 185 && boardInstance->getBoardData(i,j) < 310 && boardInstance->getBoardData(i,j) != 222 && boardInstance->getBoardData(i,j) != 243){
+                smallPelletsarr[tempItr].setPos(blockDim*j + margin, blockDim*i + margin);
+                scene->addItem(&smallPelletsarr[tempItr]);
+                tempItr++;
+            }else{
+                for(int k=0; k<20; k++){
+                    if(tempArr[k] == boardInstance->getBoardData(i,j)){
+                        smallPelletsarr[tempItr].setPos(blockDim*j + margin, blockDim*i + margin);
+                       scene->addItem(&smallPelletsarr[tempItr]);
+                        tempItr++;
+                    }
+                }
+            }
+
+
+            if(boardInstance->getBoardData(i,j) == 31 || boardInstance->getBoardData(i,j) == 36 || boardInstance->getBoardData(i,j) == 243 || boardInstance->getBoardData(i,j) == 222 ){
+                powerPelletsarr[tempItr2].setPos(blockDim*j + margin, blockDim*i + margin);
+                scene->addItem(&powerPelletsarr[tempItr2]);
+                tempItr2++;
+            }
+
+        }
+    }
+
+
+
+}
+
+void GameManager::StartAgain()
+{
+    scene->removeItem(gamestate);
+    fillPellets();
+    pacman->startanim();
+    timer->start(20);
+    int temp = (qrand()%5) + 11;
+    timerFruit->start(1000*temp);//the fruit will appear after 10 to 15 seconds, we can make this random
+
 
 }
 
