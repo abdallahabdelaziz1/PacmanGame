@@ -87,18 +87,6 @@ GameManager::GameManager()
     BlinkyInstant=new Blinky(boardInstance->getBoardPointer());
    scene->addItem(BlinkyInstant);
 
-    //testing blinky
-   for(int i=0;i<200;i++){ //instead of the loop, use timer
-        BlinkyInstant->FollowPaceman();
-    }
-   BlinkyInstant->changestate(); //if pacman eats power pellet
-   for(int i=0;i<200;i++){
-        BlinkyInstant->escape();//make him escape
-    }
-   //after certain time
-   BlinkyInstant->ReturnOriginalState();//return his image
-   //or if eatern go to home
-   BlinkyInstant->ReturnHome();//note return home calls return original state and retrun it to home as well
 
 
 
@@ -114,6 +102,7 @@ GameManager::GameManager()
    scene->addItem(currentscore);
 
 }
+
 
 
 void GameManager::keyPressEvent(QKeyEvent *event)
@@ -161,6 +150,8 @@ void GameManager::advance(){
             playerScore += smallPelletsarr[0].getValue();
         }else if(typeid(*collidedItems[i]) == typeid(powerPellets)){
             scene->removeItem(collidedItems[i]);
+
+            InkyInstant->SetValue();//sets value to 200
             pacstate->invenciblestate();
             playerScore += powerPelletsarr[0].getValue();
             InkyInstant->changestate();
@@ -169,13 +160,14 @@ void GameManager::advance(){
             PinkyInstant->escape();
             BlinkyInstant->changestate();
             BlinkyInstant->escape();
-            timerGhostState->start(8000);
+            timerGhostState->start(10000);
 
         }else if(typeid(*collidedItems[i]) == typeid(Inky)){
             if(InkyInstant->getAttackingState() == 0){
                 //Ghost is eaten
                 InkyInstant->ReturnHome();
-                playerScore += 200;
+                playerScore += Ghosts::GetValue();
+                Ghosts::DoubleValue();
             }else{
                 //ghost will attack, he will lose a live, game will reset,
                 remlives->loselife();
@@ -184,7 +176,8 @@ void GameManager::advance(){
         }else if(typeid(*collidedItems[i]) == typeid(Pinky)){
             if(PinkyInstant->getAttackingState() == 0){
                 PinkyInstant->ReturnHome();
-                playerScore += 200;
+                playerScore += Ghosts::GetValue();
+                 Ghosts::DoubleValue();
             }else{
                 remlives->loselife();
                 resetGame();
@@ -192,7 +185,8 @@ void GameManager::advance(){
         }else if(typeid(*collidedItems[i]) == typeid(Blinky)){
             if(BlinkyInstant->getAttackingState() == 0){
                 BlinkyInstant->ReturnHome();
-                playerScore += 200;
+                playerScore += Ghosts::GetValue();
+                 Ghosts::DoubleValue();
             }else{
                 remlives->loselife();
                 resetGame();
@@ -228,11 +222,14 @@ void GameManager::ghostStateTimeout(){
     if(BlinkyInstant->getAttackingState() != 1){
         BlinkyInstant->ReturnOriginalState();
     }
+    Ghosts::SetValue();
     pacstate->normalstate();
     timerGhostState->stop();
+
 }
 
 void GameManager::resetGame(){
+    Ghosts::SetValue();
     InkyInstant->ReturnHome();
     PinkyInstant->ReturnHome();
     BlinkyInstant->ReturnHome();

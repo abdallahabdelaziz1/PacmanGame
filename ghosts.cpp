@@ -17,13 +17,13 @@ Ghosts::Ghosts(int** temp)
     srand(time(NULL));
 
 
-    value=200;
+
     AttackingState=1;
 
 
 }
-
-
+//initializing the value
+int Ghosts::value=200;
 
 void Ghosts::FollowPaceman()
 {
@@ -105,4 +105,17 @@ void Ghosts::SETPOS(int r, int c)
     row=r;
     column=c;
     setPos(margin+ column*blockDim, margin+row*blockDim);
+}
+
+void Ghosts::SetValue()
+{
+    value=200;
+}
+void Ghosts::DoubleValue(){
+    value*=2;
+}
+
+int Ghosts::GetValue()
+{
+    return value;
 }

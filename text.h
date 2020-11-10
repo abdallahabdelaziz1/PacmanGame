@@ -10,7 +10,7 @@ class text : public QGraphicsTextItem
     Q_OBJECT
 
 protected:
-    QFont font;
+ //   QFont font; this should be removed Abdallah? Sah?
     QString display;
 public:
     text();                           //initiated at teh begining of the game and shows the word "READY!" on screen.
