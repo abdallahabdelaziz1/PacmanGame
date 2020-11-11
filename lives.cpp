@@ -34,12 +34,10 @@ void lives::addLive(){
     //if the function is called after reset it will not add the image of the first live
     if(CurNumOfLives != 0){
     CurNumOfLives++;
-        if(CurNumOfLives-1 >= 0){
-            shapes.push_back(new QGraphicsPixmapItem);
-            shapes.top()->setPixmap(icon);
-            shapes.top()->setPos(margin+blockDim*(CurNumOfLives-2), 31*blockDim+ margin);      //, 20+i*blockdim, sceneDim = 31*blockDim
-            savedscene->addItem(shapes.top());
-        }
+    shapes.push_back(new QGraphicsPixmapItem);
+    shapes.top()->setPixmap(icon);
+    shapes.top()->setPos(margin+blockDim*(CurNumOfLives-2), 31*blockDim+ margin);      //, 20+i*blockdim, sceneDim = 31*blockDim
+    savedscene->addItem(shapes.top());
     }
     else
         CurNumOfLives++;

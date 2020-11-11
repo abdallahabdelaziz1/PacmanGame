@@ -49,7 +49,7 @@ private:
     int tenkcount=1;
     int UneatenPellets=248;
 
-     void resetGame();
+     void resetGame(bool win);
      void fillPellets();
      void StartAgain();
 

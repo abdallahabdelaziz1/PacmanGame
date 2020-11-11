@@ -157,7 +157,7 @@ void GameManager::advance(){
             }else{
                 //ghost will attack, he will lose a live, game will reset,
                 remlives->loselife();
-                resetGame();
+                resetGame(0);
 
             }
 
@@ -170,7 +170,7 @@ void GameManager::advance(){
                  Ghosts::DoubleValue();
             }else{
                 remlives->loselife();
-                resetGame();
+                resetGame(0);
 
             }
 
@@ -183,7 +183,7 @@ void GameManager::advance(){
                  Ghosts::DoubleValue();
             }else{
                 remlives->loselife();
-                resetGame();
+                resetGame(0);
             }
 
 
@@ -213,7 +213,7 @@ void GameManager::advance(){
         timer->stop();
         timerFruit->stop();
         pacman->endanim();
-        resetGame();
+        resetGame(1);
     }else{
         InkyInstant->FollowPaceman();
         PinkyInstant->FollowPaceman();
@@ -244,16 +244,20 @@ void GameManager::ghostStateTimeout(){
 
 
 //this function is called when pacman is eaten! returning the ghosts and pacman to thier original state
-void GameManager::resetGame(){
+void GameManager::resetGame(bool win){
     Ghosts::SetValue();
     InkyInstant->ReturnHome();
     PinkyInstant->ReturnHome();
     BlinkyInstant->ReturnHome();
     pacman->reset();
     pacstate->normalstate();
-    timer->stop();
-    pacman->endanim();
-    delay->start(500);
+
+    if(!win){
+        timer->stop();
+        pacman->endanim();
+        delay->start(500);
+    }
+
 }
 
 
