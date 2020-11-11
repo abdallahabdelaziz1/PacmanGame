@@ -24,11 +24,17 @@ GameManager::GameManager()
     timerFruit=new QTimer(this);
     connect(timerFruit, SIGNAL(timeout()),this, SLOT(createFruit()));
 
+    delay = new QTimer(this);
+    connect(delay, SIGNAL(timeout()), this, SLOT(delayStart()));
+    delay->setSingleShot(true);
+
 
     //The game manager will initialize the game
     boardInstance=new board(scene);
 
 
+    //fillpellets on the scene
+    fillPellets();
 
     //adding the ghosts to the scene
     InkyInstant=new Inky(boardInstance->getBoardPointer());
@@ -53,10 +59,6 @@ GameManager::GameManager()
     scene->addItem(gamestate);
     scene->addItem(currentscore);
 
-
-   //fillpellets on the scene
-   fillPellets();
-
 }
 
 
@@ -79,9 +81,7 @@ void GameManager::keyPressEvent(QKeyEvent *event)
            playerScore=0;
            tenkcount=1;
            currentscore->updatescore(0);
-           remlives->addliveWithoutphoto();
-           remlives->addliveWithPhoto();
-           remlives->addliveWithPhoto();
+           remlives->resetLives();
            fruit::resetCount();
         }else if(event->key()==Qt::Key_N){
             this->close();
@@ -118,7 +118,7 @@ void GameManager::advance(){
 
     //adding a life everytime the player gains 10,000 points
     if(playerScore/10000==tenkcount){
-        remlives->addliveWithPhoto();
+        remlives->addLive();
         tenkcount++;
     }
 
@@ -158,7 +158,9 @@ void GameManager::advance(){
                 //ghost will attack, he will lose a live, game will reset,
                 remlives->loselife();
                 resetGame();
+
             }
+
 
         }else if(typeid(*collidedItems[i]) == typeid(Pinky)){
 
@@ -169,7 +171,9 @@ void GameManager::advance(){
             }else{
                 remlives->loselife();
                 resetGame();
+
             }
+
 
         }else if(typeid(*collidedItems[i]) == typeid(Blinky)){
 
@@ -182,6 +186,7 @@ void GameManager::advance(){
                 resetGame();
             }
 
+
         }else if(typeid(*collidedItems[i]) == typeid(fruit)){
                 scene->removeItem(collidedItems[i]);
                 fruit::increaseCount();
@@ -190,6 +195,7 @@ void GameManager::advance(){
                 timerFruit->start(1000*tempT);
         }
     }
+
 
     //update score text
     currentscore->updatescore(playerScore);
@@ -245,6 +251,9 @@ void GameManager::resetGame(){
     BlinkyInstant->ReturnHome();
     pacman->reset();
     pacstate->normalstate();
+    timer->stop();
+    pacman->endanim();
+    delay->start(500);
 }
 
 
@@ -303,6 +312,7 @@ void GameManager::StartAgain() {
 }
 
 
+
 //this function creates the fruit, the timer calls it randomly between 10 to 15 seconds
 void GameManager::createFruit(){
 
@@ -324,6 +334,12 @@ void GameManager::createFruit(){
     //calling the timer again but with a different value
     int tempT = (qrand()%5) + 14;
     timerFruit->start(1000*tempT);
+}
+
+void GameManager::delayStart()
+{
+    timer->start();
+    pacman->startanim();
 }
 
 GameManager::~GameManager() {

@@ -5,25 +5,27 @@
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 #include <QGraphicsScene>
+#include <QStack>
 
 class lives : public QObject
 {
     Q_OBJECT
 private:
-    int num;
-    QGraphicsPixmapItem* shapes;
+    const int NumOfLives = 3;
+    int CurNumOfLives = NumOfLives;
+    QStack<QGraphicsPixmapItem*> shapes;
     QPixmap icon;
     QGraphicsScene* savedscene;
     int blockDim = 20;
     int margin = 30;
 
 public:
-   lives(QGraphicsScene* scene, int n = 3);          //takes the scene as an argument and an optional number of lives (default 3)
+   lives(QGraphicsScene* scene);          //takes the scene as an argument and an optional number of lives (default 3)
    int getnumlives();                                //returns remaining lives
    void loselife();
-   void addliveWithPhoto();//should be called when score reaches 10 000
    bool Died();
-   void addliveWithoutphoto();
+   void addLive();
+   void resetLives();
 };
 
 #endif // LIVES_H
