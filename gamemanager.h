@@ -19,6 +19,7 @@
 #include "player.h"
 #include "state.h"
 
+
 class GameManager : public QGraphicsView
 {
     Q_OBJECT
@@ -32,7 +33,7 @@ private:
     Pinky *PinkyInstant;
     Blinky * BlinkyInstant;
     player* pacman;
-    int playerScore =0;
+    int playerScore = 0;
     lives* remlives;
     text* gamestate;
     score* currentscore;
@@ -42,10 +43,12 @@ private:
     QTimer *timer;
     QTimer *timerGhostState;
     QTimer *timerFruit;
+    QTimer *delay;
     bool started = false;
     state* pacstate;
     int tenkcount=1;
     int UneatenPellets=248;
+
      void resetGame();
      void fillPellets();
      void StartAgain();
@@ -55,6 +58,7 @@ private slots:
     void advance();
     void ghostStateTimeout();
     void createFruit();
+    void delayStart();
 
 public:
     GameManager();

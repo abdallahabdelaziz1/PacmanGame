@@ -179,6 +179,11 @@ void player::reset(){
     tempRow = row;
     tempCol = col;
     setPos(Xpos, Ypos);
+    direct='R';
+    pacman.load("pacmanR.png");
+    pacman = pacman.scaledToWidth(blockDim);
+    pacman = pacman.scaledToHeight(blockDim);
+    setPixmap(pacman);
 }
 
 void player::startanim()
