@@ -18,6 +18,7 @@
 #include "text.h"
 #include "player.h"
 #include "state.h"
+#include "sounds.h"
 
 
 class GameManager : public QGraphicsView
@@ -27,6 +28,7 @@ private:
     board *boardInstance;
     smallPellets smallPelletsarr[244]; //better be dynamic?
     powerPellets powerPelletsarr[4];
+    Sounds* musicManager;
     fruit fruitInstance;
     QGraphicsScene * scene;
     Inky *InkyInstant;

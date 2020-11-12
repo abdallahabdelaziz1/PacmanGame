@@ -6,9 +6,7 @@ class fruit : public collectables {
 public:
     fruit();
     int getValue();
-    static void increaseCount(){
-        countEaten++;
-    }
+    static void increaseCount();
     void setRandSprite();
     static void resetCount();
 

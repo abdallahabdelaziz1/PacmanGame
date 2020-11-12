@@ -12,7 +12,7 @@ GameManager::GameManager()
     this->setScene(scene);
 
 
-    srand(time(NULL));
+    srand(time(NULL)); //for random values
 
     //intializing timers
     timer=new QTimer(this);
@@ -33,7 +33,7 @@ GameManager::GameManager()
     boardInstance=new board(scene);
 
 
-    //fillpellets on the scene
+    //put the pellets on the scene
     fillPellets();
 
     //adding the ghosts to the scene
@@ -46,8 +46,7 @@ GameManager::GameManager()
     BlinkyInstant=new Blinky(boardInstance->getBoardPointer());
     scene->addItem(BlinkyInstant);
 
-
-    //adding score, remaining lives, and game state, and player!
+    //adding player, score, remaining lives, and pacman state!
     pacman = new player(boardInstance->getBoardPointer());
     remlives = new lives(scene);
     gamestate = new text;
@@ -59,12 +58,16 @@ GameManager::GameManager()
     scene->addItem(gamestate);
     scene->addItem(currentscore);
 
+
+    //creating sound and music object
+    musicManager = new Sounds;
+
 }
 
 
+
 //Handling input
-void GameManager::keyPressEvent(QKeyEvent *event)
-{
+void GameManager::keyPressEvent(QKeyEvent *event) {
 
     //starting the game
     if (event->key() == Qt::Key_Space && !started){
@@ -202,18 +205,22 @@ void GameManager::advance(){
 
     //checks if the player won or lost every time advanced is called, it will display information win/los text only
     if(remlives->Died()){
+        musicManager->playLose();
         gamestate->lost();
         scene->addItem(gamestate);
         timer->stop();
         timerFruit->stop();
         pacman->endanim();
+        scene->removeItem(&fruitInstance); //if the fruit hasn't been added it doesn't crash thankfullly.
     }else if(UneatenPellets==0){
+        musicManager->playWin();
         gamestate->won();
         scene->addItem(gamestate);
         timer->stop();
         timerFruit->stop();
         pacman->endanim();
         resetGame(1);
+        scene->removeItem(&fruitInstance);
     }else{
         InkyInstant->FollowPaceman();
         PinkyInstant->FollowPaceman();
@@ -305,9 +312,10 @@ void GameManager::fillPellets() {
 
 }
 
-//this is called if the player decides to continue (Y) or when the game starts for the first time
+//this is called if the player decides to continue (Y) or when the game starts for the first time.
 void GameManager::StartAgain() {
     scene->removeItem(gamestate);
+    musicManager->playMain();
     fillPellets();
     pacman->startanim();
     timer->start(18);
@@ -361,5 +369,6 @@ GameManager::~GameManager() {
     delete InkyInstant;
     delete PinkyInstant;
     delete BlinkyInstant;
+    delete musicManager;
 
 }

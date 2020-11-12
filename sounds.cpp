@@ -3,40 +3,43 @@
 Sounds::Sounds()
 {
 
-    Playlist = new QMediaPlaylist();
-    Playlist->setPlaybackMode(QMediaPlaylist::Loop);
+    //creating the playlist and adding the music
+    mainPlaylist = new QMediaPlaylist();
+    mainPlaylist->addMedia(QUrl::fromLocalFile("pacmanMainSound.mp3"));
+    mainPlaylist->addMedia(QUrl::fromLocalFile("pacmanWin.mp3"));  //from zapsplat.com
+    mainPlaylist->addMedia(QUrl::fromLocalFile("pacmanGameover.mp3"));
 
-    backgroundmusic= new QMediaPlayer();
-    winmusic=new QMediaPlayer();
-    losemusic=new QMediaPlayer();
-
-
-    backgroundmusic->setMedia(QUrl::fromLocalFile("Y:/projects/HangmanGame/HangManGame/backgroundmusic.mp3"));
-    backgroundmusic->play();
-
-}
-
-
-void Sounds::PlayGeneral(){
+    //creating the media player which plays a specific music in the playlist by setPlaylist
+    currentMedia = new QMediaPlayer();
+    currentMedia->setPlaylist(mainPlaylist);
 
 
 }
-void StopGeneral();
-void PlayWin();
-void StopWin();
-void PlayLose();
-void StopLose();
+
+void Sounds::stopPlayer(){
+    currentMedia->stop(); //stops the music played
+}
+
+//sets which music to play in the playlist and what mode to play it in and plays it from the media player.
+void Sounds::playMain(){
+    mainPlaylist->setCurrentIndex(0);
+    mainPlaylist->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
+    currentMedia->setVolume(50);
+    currentMedia->play();
+}
+
+//sets which music to play in the playlist and what mode to play it in and plays it from the media player.
+void Sounds::playWin(){
+    mainPlaylist->setCurrentIndex(1);
+    mainPlaylist->setPlaybackMode(QMediaPlaylist::CurrentItemOnce);
+    currentMedia->play();
+}
+
+//sets which music to play in the playlist and what mode to play it in and plays it from the media player.
+void Sounds::playLose(){
+    mainPlaylist->setCurrentIndex(2);
+    mainPlaylist->setPlaybackMode(QMediaPlaylist::CurrentItemOnce);
+    currentMedia->play();
+}
 
 
-/*
-
-playlist->addMedia(QUrl("qrc:/sounds/backgroundmusic.mp3"));
-playlist->setPlaybackMode(QMediaPlaylist::Loop);
-
-QMediaPlayer *music = new QMediaPlayer();
-music->setPlaylist(playlist);
-music->play();
-
- backgroundmusic->setMedia(QUrl::fromLocalFile("Y:/projects/HangmanGame/HangManGame/backgroundmusic.mp3"));
-
-*/

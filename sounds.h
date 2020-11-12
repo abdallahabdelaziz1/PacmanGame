@@ -7,23 +7,17 @@ class Sounds
 {
 
 private:
-      QMediaPlaylist * Playlist;
-//sugessoion: make only one QMediaPlayer called Player
-//you wuill use to play whatever in PlayList
-//you can make one stop funciton
-      QMediaPlayer* backgroundmusic;
-      QMediaPlayer* winmusic;
-      QMediaPlayer* losemusic;
+      QMediaPlaylist * mainPlaylist;
+      QMediaPlayer* currentMedia;
+
 public:
     Sounds();
-    void PlayGeneral();
-    void StopGeneral();
 
-    void PlayWin();
-    void StopWin();
+    void playMain();
+    void playWin();
+    void playLose();
+    void stopPlayer();
 
-    void PlayLose();
-    void StopLose();
 };
 
 #endif // SOUNDS_H
