@@ -10,14 +10,15 @@ class Ghosts: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    Ghosts(int** temp);
-    virtual void FollowPaceman();
-    virtual void ReturnHome()=0;
+    Ghosts(int** temp);//constructor takes a pointer to 2D array to fill board data
+    virtual void FollowPaceman(); //function that determines the moves of the ghost. Now, random. Will be overrided in the next milestone
+    virtual void ReturnHome()=0;  //pure virtual function that is overrided for each ghost to retur him to his original place
+
     void changestate(); //changes the image of the ghost to the scared ghost
     void escape(); // make him escape from the pacman
-    virtual void ReturnOriginalState()=0; //returns its original image
-    bool getAttackingState();
-    void SETPOS(int r, int c);//chang the position of the ghose
+    virtual void ReturnOriginalState()=0; //returns its original image without going back to the home
+    bool getAttackingState();//get wheter he is attcking or escaping
+    void SETPOS(int r, int c);//chang the position of the ghost
     static void SetValue();//returns the value to 200
     static void DoubleValue(); //doubles the value
     static int GetValue();//
@@ -31,8 +32,8 @@ protected:
     int blockDim = 20;
     int margin = 30;
     QPixmap sprite;
-    int** boardData;
-    float speed = 2; //need to be a divisor of blockDim so that rowPerSpeed is an integer.
+    int** boardData;//carries board data
+    float speed = 2; //need to be a divisor of blockDim so that rowPerSpeed is an integer. used to improve smothness of the ghost moving
     float rowsPerSpeed = blockDim / speed;
     int moveCounter = 0;
     int q=0;
@@ -47,39 +48,3 @@ protected:
 
 #endif // GHOSTS_H
 
-
-/*
-  //ghosts
-
-    QPixmap rtemp("blinky.png");
-      rtemp=rtemp.scaledToWidth(2*16);
-      rtemp=rtemp.scaledToHeight(2*16);
-
-      tt.setPixmap(rtemp);
-      //column 11 row 13
-      tt.setPos(20+16*11, 20+16*13);
-      gameScene.addItem(&tt);
-
-      QPixmap ftemp("inky.png");
-      ftemp=ftemp.scaledToWidth(2*16);
-      ftemp=ftemp.scaledToHeight(2*16);
-      tt2.setPixmap(ftemp);
-      tt2.setPos(20+16*13, 20+16*13);
-      gameScene.addItem(&tt2);
-
-
-      QPixmap qtemp("pinky.png");
-      qtemp=qtemp.scaledToWidth(2*16);
-      qtemp=qtemp.scaledToHeight(2*16);
-      tt3.setPixmap(qtemp);
-      tt3.setPos(20+16*15, 20+16*13);
-      gameScene.addItem(&tt3);
-
-
-
-  QGraphicsPixmapItem tt;
-       QGraphicsPixmapItem tt2;
-       QGraphicsPixmapItem tt3;
-
-
-*/

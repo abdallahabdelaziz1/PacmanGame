@@ -3,16 +3,15 @@
 board::board(QGraphicsScene * g)
 {
 
+    //passing the scene from gameManager to board, it will use the scene to add the edges and corner items.
     gameScene=g;
 
 
-    //2) allocating memory to board data
+    //allocating memory to board data
     boardData=new int*[31];
     for(int i=0;i<31;i++){
         boardData[i]=new int[28];
     }
-
-    //3-) We will create our board from a text file
 
     //Read board data from txt file and assign it to boardData array
     QFile file("board.txt");
@@ -27,9 +26,7 @@ board::board(QGraphicsScene * g)
     }
 
 
-
-
-    //Draw board graphics
+    //Creating the board edges and corners pixmaps and setting their size
     QPixmap edgeImageH("edgeH.png");
     edgeImageH = edgeImageH.scaledToWidth(blockDim);
     edgeImageH = edgeImageH.scaledToHeight(blockDim);
@@ -51,10 +48,8 @@ board::board(QGraphicsScene * g)
 
 
 
-    //FOR SOME F***** STUPID REASON THE QGRAPHICSPIXMAPITEM HAVE TO BE IN THE HEAP!!!!!! AND DON"T DELETE THEM, WTF QT???
-    //since we will use board images once it is better anyway to save them in heap, however deleting them makes them disappear so I am not entirely sure of this method or why does this happen.
-    //so it will be better to create a member array board images and delete it in the destructor
-    boardImages = new QGraphicsPixmapItem*[31]; //we need a pixmapitem for each image, we need to decide two things, position and image it holds
+    //allocating memory for boardImages and assigning the pixmaps to the to boardImages where each number corresponds to a specific pixmap,
+    boardImages = new QGraphicsPixmapItem*[31];
     for(int i=0; i<31; i++){
         boardImages[i] = new QGraphicsPixmapItem[28];
     }
@@ -86,23 +81,8 @@ board::board(QGraphicsScene * g)
         }
     }
 
-
-
-
-
 }
 
-
-int board::getMargin(){
-    return margin;
-}
-
-bool board::checkBlock(int r, int c){
-    if(boardData[r][c] < 0)
-    return false;
-
-    return true;
-}
 
 int **board::getBoardPointer()
 {
@@ -118,4 +98,10 @@ board::~board(){
         delete [] boardImages[i];
     }
     delete [] boardImages;
+
+    for(int i=0; i<31 ; i++){
+        delete [] boardData[i];
+    }
+    delete [] boardData;
+
 }

@@ -12,8 +12,8 @@ private:
 public:
     Blinky(int** temp);
   //  void FollowPaceman() override; //will be defined later
-    void ReturnHome() override;
-    void ReturnOriginalState() override;
+    void ReturnHome() override; //returns blinky to its home
+    void ReturnOriginalState() override;//returns its image without returning to its home
 
 };
 #endif // BLINKY_H

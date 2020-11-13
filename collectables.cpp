@@ -1,8 +1,11 @@
 #include "collectables.h"
 
-collectables::collectables()
-{
- //what should the collectable constructor do?
+collectables::collectables(){
+    //there is nothing the defualt constructor should do!
+}
+
+int collectables::getValue(){
+    return value;
 }
 
 

@@ -5,13 +5,13 @@
 class fruit : public collectables {
 public:
     fruit();
-    int getValue();
-    static void increaseCount();
-    void setRandSprite();
-    static void resetCount();
+    int getValue(); //we will override the getValue function because we want to increment the value for each fruit eaten
+    static void increaseCount(); //increases the count of eaten fruits
+    void setRandSprite(); //sets a random sprite (image) for the fruit
+    static void resetCount(); //resets the number of eaten fruit
 
 private:
-    static int countEaten;
+    static int countEaten; //a static number to keep count of eaten fruit
 
 };
 

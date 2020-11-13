@@ -1,6 +1,7 @@
 #include "powerpellets.h"
 
 powerPellets::powerPellets() {
+
     //initializing sprite and value
     sprite.load("powerPellet.png");
     sprite = sprite.scaledToWidth(blockDim);

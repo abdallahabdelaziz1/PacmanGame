@@ -11,11 +11,7 @@ protected:
     int blockDim = 20; //this defines the dimensions of the collectables
 public:
     collectables();
-    int getValue(){
-        return value;
-    }
-    //virtual void OnCollision();
-    //virtual void deleteItem();
+    int getValue();
 };
 
 #endif // COLLECTABLES_H

@@ -17,12 +17,12 @@ protected:
     QTimer* wintimer;
     QFont *arcade;
 private slots:
-    void ChangeToContinue();
-    void ChangeToRepeat();
+    void ChangeToContinue();//after 2 seconds of showing "you won", it shows "Continue? Y\N".
+    void ChangeToRepeat();//after 2 seconds of showing "Game over", it shows "Again? Y\N".
 public:
     text();                           //initiated at teh begining of the game and shows the word "READY!" on screen.
-    void lost();                      //switches form "READY!" to "GAME OVER"
-    void won();
+    void lost();                      //make the display "GAME OVER"
+    void won();                       //make the display "You won" then after 3 seconds shows "Continue? Y\N".
 
 };
 
