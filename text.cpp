@@ -24,7 +24,7 @@ void text::lost(){
     setDefaultTextColor(Qt::red);
     setPlainText(display);
     setPos(11*20, 17*20);      //11*blockdim, 18*blockdim
-    gameovertimer->start(3000);
+    gameovertimer->start(2000);
 }
 void text::ChangeToRepeat()
 {
@@ -41,7 +41,7 @@ void text::won()
     setDefaultTextColor(Qt::red);
     setPlainText(display);
     setPos(11*20, 17*20);      //11*blockdim, 18*blockdim
-    wintimer->start(3000);
+    wintimer->start(2000);
 
 }
 

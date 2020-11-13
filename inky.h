@@ -10,8 +10,9 @@ private:
 public:
     Inky(int** temp);
   //  void FollowPaceman() override; //will be defined later
-    void ReturnHome() override;
-    void ReturnOriginalState() override;
+    void ReturnHome() override; //returns inky to its home
+    void ReturnOriginalState() override;//returns its image without returning to its home
+
 
 };
 

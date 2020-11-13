@@ -31,14 +31,15 @@ void Ghosts::FollowPaceman()
 
     moveCounter++;
     if(moveCounter == 1){
-        q=qrand()%4;
+        q=qrand()%4;//at the beginning of the movement to a new block, radonmly select a direction
+        //0 : up, 1: won, 2: right, 3: left
     }
 
     if(q==0 && boardData[row-1][column]>0){
 
         if(moveCounter > rowsPerSpeed){
-            moveCounter = 0;
-            row--;
+            moveCounter = 0;//retrun movecounter to 0 when we finish the whole block
+            row--;//up
         }
         setPos( (blockDim*column+margin) , (blockDim*row+margin) - speed*moveCounter );
 
@@ -57,7 +58,7 @@ void Ghosts::FollowPaceman()
         if(moveCounter > rowsPerSpeed){
             moveCounter = 0;
             column++;//right
-            if (column == (TotalColumns-1))//handling portal
+            if (column == TotalColumns-1)//handling portal
                 column = 1;
         }
         setPos( (blockDim*column+margin) + speed*moveCounter, (blockDim*row+margin)  );
@@ -74,7 +75,7 @@ void Ghosts::FollowPaceman()
         setPos( (blockDim*column+margin) - speed*moveCounter, (blockDim*row+margin)  );
 
     }else{
-        q=qrand()%4;
+        moveCounter=0;
     }
 }
 
@@ -91,7 +92,7 @@ void Ghosts::escape()
 {
     //now it will just move randomly, so we simply coall follow pacman
     FollowPaceman();
-    //however it will have an algorithmim in the upcoming milestones
+    //however it will have an algorithm in the upcoming milestones
 }
 
 
