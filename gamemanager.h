@@ -19,6 +19,7 @@
 #include "player.h"
 #include "state.h"
 #include "sounds.h"
+#include <QPushButton>
 
 
 class GameManager : public QGraphicsView
@@ -50,6 +51,8 @@ private:
     state* pacstate;
     int tenkcount=1;
     int UneatenPellets=248;
+    QPushButton* music;
+    bool MusicWorks = true;
 
      void resetGame(bool win);
      void fillPellets();
@@ -61,6 +64,7 @@ private slots:
     void ghostStateTimeout();
     void createFruit();
     void delayStart();
+    void on_music_clicked();
 
 public:
     GameManager();
