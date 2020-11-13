@@ -213,7 +213,9 @@ void GameManager::advance(){
 
     //checks if the player won or lost every time advanced is called, it will display information win/los text only
     if(remlives->Died()){
-        musicManager->playLose();
+        if(MusicWorks){
+             musicManager->playLose();
+        }
         gamestate->lost();
         scene->addItem(gamestate);
         timer->stop();
@@ -221,7 +223,9 @@ void GameManager::advance(){
         pacman->endanim();
         scene->removeItem(&fruitInstance); //if the fruit hasn't been added it doesn't crash thankfullly.
     }else if(UneatenPellets==0){
-        musicManager->playWin();
+        if(MusicWorks){
+         musicManager->playWin();
+        }
         gamestate->won();
         scene->addItem(gamestate);
         timer->stop();
@@ -323,7 +327,10 @@ void GameManager::fillPellets() {
 //this is called if the player decides to continue (Y) or when the game starts for the first time.
 void GameManager::StartAgain() {
     scene->removeItem(gamestate);
-    musicManager->playMain();
+    if(MusicWorks){
+         musicManager->playMain();
+    }
+
     fillPellets();
     pacman->startanim();
     timer->start(18);
