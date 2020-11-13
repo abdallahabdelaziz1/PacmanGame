@@ -7,7 +7,7 @@ fruit::fruit() {
 int fruit::countEaten = 0; //this is to count the total number of fruits eaten, we will use it to calculate the value
 
 int fruit::getValue() {
-    return value*countEaten; //each time you eat a fruit the next fruit has 100 more points, or maybe we can make it double
+    return value*countEaten; //each time you eat a fruit the next fruit has 100 more points!
 }
 
 void fruit::increaseCount(){
@@ -15,7 +15,7 @@ void fruit::increaseCount(){
 }
 
 
-//seting the Qpixmap image, dimensions, adding it to the item
+//setting the Qpixmap image, dimensions, set the pixmap to the QgraphicsItem.
 void fruit::setRandSprite()
 {
     //we set the image to be a random fruit image from the four images

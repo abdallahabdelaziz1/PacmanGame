@@ -3,6 +3,7 @@
 board::board(QGraphicsScene * g)
 {
 
+    //passing the scene from gameManager to board, it will use the scene to add the edges and corner items.
     gameScene=g;
 
 
@@ -25,9 +26,7 @@ board::board(QGraphicsScene * g)
     }
 
 
-
-
-    //Draw board graphics
+    //Creating the board edges and corners pixmaps and setting their size
     QPixmap edgeImageH("edgeH.png");
     edgeImageH = edgeImageH.scaledToWidth(blockDim);
     edgeImageH = edgeImageH.scaledToHeight(blockDim);
@@ -49,9 +48,8 @@ board::board(QGraphicsScene * g)
 
 
 
-
-    //so it will be better to create a member array board images and delete it in the destructor
-    boardImages = new QGraphicsPixmapItem*[31]; //we need a pixmapitem for each image, we need to decide two things, position and image it holds
+    //allocating memory for boardImages and assigning the pixmaps to the to boardImages where each number corresponds to a specific pixmap,
+    boardImages = new QGraphicsPixmapItem*[31];
     for(int i=0; i<31; i++){
         boardImages[i] = new QGraphicsPixmapItem[28];
     }
@@ -83,23 +81,8 @@ board::board(QGraphicsScene * g)
         }
     }
 
-
-
-
-
 }
 
-
-int board::getMargin(){
-    return margin;
-}
-
-bool board::checkBlock(int r, int c){
-    if(boardData[r][c] < 0)
-    return false;
-
-    return true;
-}
 
 int **board::getBoardPointer()
 {
@@ -115,4 +98,10 @@ board::~board(){
         delete [] boardImages[i];
     }
     delete [] boardImages;
+
+    for(int i=0; i<31 ; i++){
+        delete [] boardData[i];
+    }
+    delete [] boardData;
+
 }
