@@ -6,13 +6,11 @@ board::board(QGraphicsScene * g)
     gameScene=g;
 
 
-    //2) allocating memory to board data
+    //allocating memory to board data
     boardData=new int*[31];
     for(int i=0;i<31;i++){
         boardData[i]=new int[28];
     }
-
-    //3-) We will create our board from a text file
 
     //Read board data from txt file and assign it to boardData array
     QFile file("board.txt");
@@ -51,8 +49,7 @@ board::board(QGraphicsScene * g)
 
 
 
-    //FOR SOME F***** STUPID REASON THE QGRAPHICSPIXMAPITEM HAVE TO BE IN THE HEAP!!!!!! AND DON"T DELETE THEM, WTF QT???
-    //since we will use board images once it is better anyway to save them in heap, however deleting them makes them disappear so I am not entirely sure of this method or why does this happen.
+
     //so it will be better to create a member array board images and delete it in the destructor
     boardImages = new QGraphicsPixmapItem*[31]; //we need a pixmapitem for each image, we need to decide two things, position and image it holds
     for(int i=0; i<31; i++){
