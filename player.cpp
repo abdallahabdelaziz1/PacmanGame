@@ -28,6 +28,11 @@ int player::getCol() {
     return col;
 }
 
+QPair<int, int> player::getCoordinate()
+{
+    return QPair<int, int> (row, col);
+}
+
 void player::move()
 {
 

@@ -29,3 +29,10 @@ void Inky::ReturnOriginalState()
     setPixmap(sprite);
 
 }
+
+void Inky::UpdateShortestPath(QPair<int, int> PacmanCoordiante)
+{
+
+    // you should determine where to go here and update hte shoortest path using the BFS function accordingly
+
+}

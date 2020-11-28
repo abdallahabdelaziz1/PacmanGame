@@ -28,6 +28,10 @@ GameManager::GameManager()
     connect(delay, SIGNAL(timeout()), this, SLOT(delayStart()));
     delay->setSingleShot(true);
 
+    UpdatePathTimer=new QTimer(this);
+  //connect(UpdatePathTimer, SIGNAL(timeout()), this, SLOT(updateGhostsPaths()));
+  //  UpdatePathTimer->start(500);
+   //update the paht every half secondsو I commented it for now, as I felt it is not necessary and it makes the movement non-smooth
 
     //The game manager will initialize the game
     boardInstance=new board(scene);
@@ -134,7 +138,10 @@ void GameManager::advance(){
     }
 
     //handling collisions
+
     QList<QGraphicsItem*> collidedItems = pacman->collidingItems();
+
+
     for(int i=0; i < collidedItems.size(); i++){
 
         if( typeid(*collidedItems[i]) == typeid(smallPellets)){
@@ -233,12 +240,30 @@ void GameManager::advance(){
         pacman->endanim();
         resetGame(1);
         scene->removeItem(&fruitInstance);
-    }else{
-        InkyInstant->FollowPaceman();
-        PinkyInstant->FollowPaceman();
-        BlinkyInstant->FollowPaceman();
+    }
+    else{
+
+        if(InkyInstant->getAttackingState())
+            InkyInstant->moveRandomly(); //just randomly for now
+        else
+            InkyInstant->escape(); //just randomly for now
+
+        if(PinkyInstant->getAttackingState())
+            PinkyInstant->moveRandomly(); //just randomly for now
+        else
+             PinkyInstant->escape(); //just randomly for now
+
+       if(BlinkyInstant->getAttackingState())
+        BlinkyInstant->FollowPaceman(pacman->getCoordinate());
+       else
+           BlinkyInstant->escape();
+
+
         pacman->move();
     }
+
+
+
 
 }
 
@@ -365,7 +390,7 @@ void GameManager::createFruit(){
 
 void GameManager::delayStart()
 {
-    timer->start();
+    timer->start(18);//should be 18 right? I added it
     pacman->startanim();
 }
 
@@ -382,6 +407,11 @@ void GameManager::on_music_clicked()
         musicManager->playMain();
         MusicWorks = true;
     }
+}
+
+void GameManager::updateGhostsPaths()
+{
+    BlinkyInstant->UpdateShortestPath(pacman->getCoordinate());
 }
 
 GameManager::~GameManager() {

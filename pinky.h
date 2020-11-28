@@ -12,6 +12,8 @@ public:
   //  void FollowPaceman() override; //will be defined later
     void ReturnHome() override; //returns pinky to its home
     void ReturnOriginalState() override;//returns its image without returning to its home
+    virtual void UpdateShortestPath(QPair <int, int> PacmanCoordiante) override;
+
 
 };
 

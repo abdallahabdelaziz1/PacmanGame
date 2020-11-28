@@ -25,15 +25,134 @@ Ghosts::Ghosts(int** temp)
 //initializing the value
 int Ghosts::value=200;
 
-void Ghosts::FollowPaceman()
+void Ghosts::FollowPaceman(QPair<int, int> PacmanCoordiante) //make the next move
 {
-//the motion here will be random, and will be overrided by algorithmic motion in child classes in the next milestone
 
-    moveCounter++;
-    if(moveCounter == 1){
-        q=qrand()%4;//at the beginning of the movement to a new block, radonmly select a direction
-        //0 : up, 1: won, 2: right, 3: left
+    if(!shortestPath.empty()){
+        if(moveCounter==0){
+            GoToCell=shortestPath.top();
+           shortestPath.pop();
+        }
+      moveTo(determineDirection(GoToCell));
+
     }
+    else{
+        UpdateShortestPath(PacmanCoordiante);
+         moveCounter=0;
+          GoToCell=shortestPath.top();
+           shortestPath.pop();
+        moveTo(determineDirection(GoToCell));
+    }
+
+}
+
+void Ghosts::changestate()
+{
+    AttackingState=0;//he can't attack now
+    sprite.load("ScaredGhost.png");
+    sprite=sprite.scaledToWidth(blockDim);
+    sprite=sprite.scaledToHeight(blockDim);
+    setPixmap(sprite);
+}
+
+void Ghosts::escape()
+{
+   // some one should update the escape
+    moveRandomly();
+
+}
+
+
+bool Ghosts::getAttackingState()
+{
+    return AttackingState;
+}
+
+void Ghosts::SETPOS(int r, int c)
+{
+    row=r;
+    column=c;
+    setPos(margin+ column*blockDim, margin+row*blockDim);
+}
+
+QStack<QPair<int, int>> Ghosts::ShortestPathBFS(QPair<int, int> PacmanCoordiante)// returns the shortest path as stack
+{
+    QQueue<QPair<int, int>> q;
+    q.push_back(qMakePair(row, column));
+    QStack<QPair<int, int>> path;
+    if(PacmanCoordiante.first==row && PacmanCoordiante.second==column ){
+        path.push(PacmanCoordiante);
+        return path;
+    }
+
+
+    bool visited[TotalRows][TotalColumns];
+    memset(visited, 0, sizeof(visited));
+
+    QMap<QPair<int, int>, QPair<int, int> > prev;
+    QPair<int, int> parent, child, inital;
+    visited[row][column]=1;
+    inital.first=row, inital.second=column;
+
+    while(!q.empty()){
+        parent= q.front();
+        q.pop_front();
+        int x=parent.first, y=parent.second;
+
+        if(boardData[x-1][y]>0 && !visited[x-1][y]){
+            visited[x-1][y]=1;
+            child.first=x-1; child.second=y;
+            prev[child]=parent;
+            q.push_back(child);
+        }
+        if(boardData[x+1][y]>0 && !visited[x+1][y]){
+            visited[x+1][y]=1;
+            child.first=x+1; child.second=y;
+            prev[child]=parent;
+            q.push_back(child);
+        }
+        if(boardData[x][y+1]>0){
+           if(y+1==TotalColumns-1){
+               y=0;
+           }
+           if(!visited[x][y+1]){
+               visited[x][y+1]=1;
+               child.first=x; child.second=y+1;
+               prev[child]=parent;
+               q.push_back(child);
+           }
+            y=parent.second;
+        }
+        if(boardData[x][y-1]>0){
+            if(y==1){
+                y=TotalColumns-1;
+            }
+            if(!visited[x][y-1]){
+                visited[x][y-1]=1;
+                child.first=x; child.second=y-1;
+                prev[child]=parent;
+                q.push_back(child);
+            }
+            y=parent.second;
+        }
+        if(visited[PacmanCoordiante.first][PacmanCoordiante.second])
+            break;
+    }
+
+
+    QPair<int, int> current=PacmanCoordiante;
+    while(current!=inital){
+        path.push(current);
+        current=prev[current];
+    }
+  //  path.push(inital);
+    return path;
+
+}
+
+void Ghosts::moveTo(int q) //implemented it to move to certain direction using Abdo method in order for ghost to move smoothly
+{
+    moveCounter++;
 
     if(q==0 && boardData[row-1][column]>0){
 
@@ -77,36 +196,56 @@ void Ghosts::FollowPaceman()
     }else{
         moveCounter=0;
     }
+
 }
 
-void Ghosts::changestate()
+int Ghosts::determineDirection(QPair<int, int> GO) //implemented it to give me the direction we should go from my current position to the cell GO
 {
-    AttackingState=0;//he can't attack now
-    sprite.load("ScaredGhost.png");
-    sprite=sprite.scaledToWidth(blockDim);
-    sprite=sprite.scaledToHeight(blockDim);
-    setPixmap(sprite);
+    if(GO.first-row==-1)
+        return 0;//up
+    if(GO.first-row==1)
+        return 1;//down
+    if(GO.second==1 && column==TotalColumns-2)
+        return 2;//right through portal
+    if(GO.second==TotalColumns-2 && column==1)
+        return 3;//left through portal
+
+    if(GO.second-column==1)
+        return 2;//right
+
+    if(GO.second-column==-1)
+        return 3;//left
+
+  //  return 0;
+
 }
 
-void Ghosts::escape()
+void Ghosts::moveRandomly()
 {
-    //now it will just move randomly, so we simply coall follow pacman
-    FollowPaceman();
-    //however it will have an algorithm in the upcoming milestones
+        if(moveCounter == 0){
+            q=qrand()%4;//at the beginning of the movement to a new block, radonmly select a direction
+            //0 : up, 1: won, 2: right, 3: left
+        }
+        moveTo(q);
+
 }
 
 
-bool Ghosts::getAttackingState()
-{
-    return AttackingState;
-}
+/*
 
-void Ghosts::SETPOS(int r, int c)
-{
-    row=r;
-    column=c;
-    setPos(margin+ column*blockDim, margin+row*blockDim);
-}
+    else if(q==3 && (column-1==-1 || boardData[row][column-1]>0)){
+
+        if(moveCounter > rowsPerSpeed){
+            moveCounter = 0;
+            column--;//left
+            if(column==0)//handling portal
+                column=TotalColumns-2;
+        }
+        setPos( (blockDim*column+margin) - speed*moveCounter, (blockDim*row+margin)  );
+
+    }
+
+*/
 
 void Ghosts::SetValue()
 {

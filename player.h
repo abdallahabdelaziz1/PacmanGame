@@ -8,6 +8,7 @@
 #include <QTimer>
 #include <QList>
 #include <QDebug>
+#include<QPair>
 
 class player : public QObject, public QGraphicsPixmapItem
 {
@@ -37,10 +38,11 @@ public:
     player(int** temp);             //takes the game board as an argument
     int getRow();                   //gets pacman position
     int getCol();
+    QPair<int, int> getCoordinate();
     void move();                    //updates pacman position accdording to the value of direct
     void changedir(char dir);       //changes direction and image. Takes 'U', 'D', 'R' or 'L' as an argument;
     void changestate();             //changes between invencible and normal states
-    bool isinvecible();             //returns true if invencible //interchangable with ghoast state (may not be needed)
+    bool isinvecible();             //returns true if invencible //interchangable with ghoast state
     void reset();                   //returns pacman to spawn
     void startanim();
     void endanim();

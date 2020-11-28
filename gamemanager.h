@@ -19,6 +19,7 @@
 #include "player.h"
 #include "state.h"
 #include "sounds.h"
+
 #include <QPushButton>
 
 
@@ -47,12 +48,14 @@ private:
     QTimer *timerGhostState;
     QTimer *timerFruit;
     QTimer *delay;
+    QTimer* UpdatePathTimer;
     bool started = false;
     state* pacstate;
     int tenkcount=1;
     int UneatenPellets=248;
     QPushButton* music;
     bool MusicWorks = true;
+
 
      void resetGame(bool win);
      void fillPellets();
@@ -65,6 +68,7 @@ private slots:
     void createFruit();
     void delayStart();
     void on_music_clicked();
+    void updateGhostsPaths();
 
 public:
     GameManager();

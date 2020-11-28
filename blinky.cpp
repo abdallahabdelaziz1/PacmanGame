@@ -12,6 +12,15 @@ Blinky::Blinky(int ** temp):Ghosts(temp)
 
 }
 
+void Blinky::UpdateShortestPath(QPair<int, int> PacmanCoordiante)
+{
+    shortestPath.clear();
+    shortestPath=ShortestPathBFS(PacmanCoordiante);
+    moveCounter=0;
+
+}
+
+
 
 
 void Blinky::ReturnHome()
