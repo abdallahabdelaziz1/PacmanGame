@@ -27,22 +27,14 @@ int Ghosts::value=200;
 
 void Ghosts::FollowPaceman(QPair<int, int> PacmanCoordiante) //make the next move
 {
+       if(moveCounter==0){
 
-    if(!shortestPath.empty()){
-        if(moveCounter==0){
+           UpdateShortestPath(PacmanCoordiante);
             GoToCell=shortestPath.top();
-           shortestPath.pop();
         }
       moveTo(determineDirection(GoToCell));
 
-    }
-    else{
-        UpdateShortestPath(PacmanCoordiante);
-         moveCounter=0;
-          GoToCell=shortestPath.top();
-           shortestPath.pop();
-        moveTo(determineDirection(GoToCell));
-    }
+
 
 }
 
@@ -77,9 +69,11 @@ void Ghosts::SETPOS(int r, int c)
 
 QStack<QPair<int, int>> Ghosts::ShortestPathBFS(QPair<int, int> PacmanCoordiante)// returns the shortest path as stack
 {
+
     QQueue<QPair<int, int>> q;
     q.push_back(qMakePair(row, column));
     QStack<QPair<int, int>> path;
+
     if(PacmanCoordiante.first==row && PacmanCoordiante.second==column ){
         path.push(PacmanCoordiante);
         return path;
@@ -90,7 +84,9 @@ QStack<QPair<int, int>> Ghosts::ShortestPathBFS(QPair<int, int> PacmanCoordiante
     memset(visited, 0, sizeof(visited));
 
     QMap<QPair<int, int>, QPair<int, int> > prev;
+
     QPair<int, int> parent, child, inital;
+
     visited[row][column]=1;
     inital.first=row, inital.second=column;
 
@@ -112,9 +108,10 @@ QStack<QPair<int, int>> Ghosts::ShortestPathBFS(QPair<int, int> PacmanCoordiante
             q.push_back(child);
         }
         if(boardData[x][y+1]>0){
-           if(y+1==TotalColumns-1){
-               y=0;
+           if(y+1==TotalColumns-1){// y== totalCOlumn-2;
+               y=0; // go to x 1
            }
+
            if(!visited[x][y+1]){
                visited[x][y+1]=1;
                child.first=x; child.second=y+1;
@@ -205,6 +202,7 @@ int Ghosts::determineDirection(QPair<int, int> GO) //implemented it to give me t
         return 0;//up
     if(GO.first-row==1)
         return 1;//down
+
     if(GO.second==1 && column==TotalColumns-2)
         return 2;//right through portal
     if(GO.second==TotalColumns-2 && column==1)

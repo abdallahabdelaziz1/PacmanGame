@@ -48,7 +48,7 @@ private:
     QTimer *timerGhostState;
     QTimer *timerFruit;
     QTimer *delay;
-    QTimer* UpdatePathTimer;
+
     bool started = false;
     state* pacstate;
     int tenkcount=1;
@@ -68,7 +68,7 @@ private slots:
     void createFruit();
     void delayStart();
     void on_music_clicked();
-    void updateGhostsPaths();
+
 
 public:
     GameManager();

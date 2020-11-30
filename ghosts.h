@@ -33,6 +33,7 @@ public:
 
 protected:
     void SETPOS(int r, int c);//chang the position of the ghost
+
     QStack<QPair<int, int>>  ShortestPathBFS(QPair<int, int> PacmanCoordiante); //returns a stack of pairs of indices of the path from the ghost position to pacmanposition
     //the top of the stack will be the position of the ghose, and the bottom is the position of pacman.
 

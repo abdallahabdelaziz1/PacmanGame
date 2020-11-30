@@ -28,10 +28,8 @@ GameManager::GameManager()
     connect(delay, SIGNAL(timeout()), this, SLOT(delayStart()));
     delay->setSingleShot(true);
 
-    UpdatePathTimer=new QTimer(this);
-  //connect(UpdatePathTimer, SIGNAL(timeout()), this, SLOT(updateGhostsPaths()));
-  //  UpdatePathTimer->start(500);
-   //update the paht every half secondsو I commented it for now, as I felt it is not necessary and it makes the movement non-smooth
+
+
 
     //The game manager will initialize the game
     boardInstance=new board(scene);
@@ -253,6 +251,7 @@ void GameManager::advance(){
         else
              PinkyInstant->escape(); //just randomly for now
 
+
        if(BlinkyInstant->getAttackingState())
         BlinkyInstant->FollowPaceman(pacman->getCoordinate());
        else
@@ -409,10 +408,6 @@ void GameManager::on_music_clicked()
     }
 }
 
-void GameManager::updateGhostsPaths()
-{
-    BlinkyInstant->UpdateShortestPath(pacman->getCoordinate());
-}
 
 GameManager::~GameManager() {
 
