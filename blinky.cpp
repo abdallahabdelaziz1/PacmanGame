@@ -32,7 +32,7 @@ void Blinky::ReturnHome()
 
 void Blinky::ReturnOriginalState()
 {
-     AttackingState=1;
+    AttackingState=1;
     sprite.load("blinky.png");
     sprite=sprite.scaledToWidth(blockDim);
     sprite=sprite.scaledToHeight(blockDim);

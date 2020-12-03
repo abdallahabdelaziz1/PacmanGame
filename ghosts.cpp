@@ -27,20 +27,20 @@ int Ghosts::value=200;
 
 void Ghosts::FollowPaceman(QPair<int, int> PacmanCoordiante) //make the next move
 {
-    Hit_Wall = false;          //resets ghousts hit wall state
+    Hit_Wall = false;          //resets ghosts hit wall state, when following pacman we reset hitwall
     Begin_Escape = false;
     if(scatterPath.empty()){
-    if(moveCounter==0){
-           UpdateShortestPath(PacmanCoordiante);
+        if(moveCounter==0){
+            UpdateShortestPath(PacmanCoordiante);
             GoToCell=shortestPath.top();
         }
-      moveTo(determineDirection(GoToCell));
-}else{
+        moveTo(determineDirection(GoToCell));
+    }else{
         if(moveCounter==0){
-                GoToCell=scatterPath.top();
-                scatterPath.pop();
-            }
-          moveTo(determineDirection(GoToCell));
+            GoToCell=scatterPath.top();
+            scatterPath.pop();
+        }
+        moveTo(determineDirection(GoToCell));
     }
 }
 
@@ -179,8 +179,7 @@ QStack<QPair<int, int>> Ghosts::ShortestPathBFS(QPair<int, int> PacmanCoordiante
 
 }
 
-void Ghosts::moveTo(int q) //implemented it to move to certain direction using Abdo method in order for ghost to move smoothly
-{
+void Ghosts::moveTo(int q) { //implemented it to move to certain direction using Abdo method in order for ghost to move smoothly
     moveCounter++;
 
     if(q==0 && boardData[row-1][column]>0){

@@ -242,20 +242,19 @@ void GameManager::advance(){
     else{
 
         if(InkyInstant->getAttackingState())
-            InkyInstant->FollowPaceman(pacman->getCoordinate()); //just randomly for now
+            InkyInstant->FollowPaceman(pacman->getCoordinate(), pacman->getdir()); //just randomly for now
         else
             InkyInstant->escape(); //just randomly for now
 
         if(PinkyInstant->getAttackingState())
-            PinkyInstant->FollowPaceman(pacman->getCoordinate()); //just randomly for now
+            PinkyInstant->FollowPaceman(pacman->getCoordinate(), pacman->getdir()); //just randomly for now
         else
              PinkyInstant->escape(); //just randomly for now
 
-
-       if(BlinkyInstant->getAttackingState())
-        BlinkyInstant->FollowPaceman(pacman->getCoordinate());
-       else
-           BlinkyInstant->escape();
+        if(BlinkyInstant->getAttackingState())
+            BlinkyInstant->FollowPaceman(pacman->getCoordinate());
+        else
+            BlinkyInstant->escape();
 
 
         pacman->move();

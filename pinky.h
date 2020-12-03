@@ -12,7 +12,7 @@ public:
     virtual void UpdateShortestPath(QPair <int, int> PacmanCoordiante) override;
     void ReturnHome() override; //returns pinky to its home
     void ReturnOriginalState() override;//returns its image without returning to its home
-
+    void FollowPaceman(QPair<int, int> PacmanCoordiante, int pacManDir);
 
 
 };

@@ -66,11 +66,13 @@ void player::move()
       }
 
 
-    if(col+1 == 28){
+    //from totalcol-2 to 1
+    //from 1 to totalcol-2
+    if( (col == TotalColumns-2) && (row == 14) && (tempDirect == 'R')){
         col = 1;
         Xpos = blockDim*col+margin;
-    }else if(col-1 == -1){
-        col = 26;
+    }else if( (col == 1) && (row == 14) && (tempDirect == 'L')){
+        col = TotalColumns-2;
         Xpos = blockDim*col+margin;
     }
 
