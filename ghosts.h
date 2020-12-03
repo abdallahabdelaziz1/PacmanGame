@@ -47,12 +47,12 @@ protected:
     virtual void UpdateShortestPath(QPair <int, int> PacmanCoordiante)=0;
 
     QStack<QPair<int, int>>  shortestPath;
-
+    QStack<QPair<int, int>> scatterPath;    //inky and pinky sacatter at the beginning
     const int TotalRows=31;
     const int TotalColumns=28;
     int row;
     int column;
-
+    bool Begin_Escape = false;
     int blockDim = 20;
     int margin = 30;
     QPixmap sprite;
@@ -60,9 +60,10 @@ protected:
     float speed = 2; //need to be a divisor of blockDim so that rowPerSpeed is an integer. used to improve smothness of the ghost moving
     float rowsPerSpeed = blockDim / speed;
     int moveCounter = 0;
-    int q=0;
+    int q=0;     //represents direction
 
     bool AttackingState;  //state=1: he can attack, else he can't
+    bool Hit_Wall = false;  //Used to detect if the escape pattern
 
     static int value;//this is the value (score) player will get if he eats a ghost.
     //It will be 200 for first eaten ghose then 400 then 800.

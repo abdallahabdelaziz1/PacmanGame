@@ -201,6 +201,18 @@ void player::endanim()
     mouthanim->stop();
 }
 
+int player::getdir()
+{
+    if (tempDirect == 'U')
+        return 0;
+    if(tempDirect == 'D')
+        return 1;
+    if(tempDirect == 'R')
+        return 2;
+    else
+        return 3;
+}
+
 void player::movemouth()
 {
 

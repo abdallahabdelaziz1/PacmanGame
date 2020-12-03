@@ -9,10 +9,10 @@ private:
      const int InitialColumn=16;
 public:
     Pinky(int** temp);
-  //  void FollowPaceman() override; //will be defined later
+    virtual void UpdateShortestPath(QPair <int, int> PacmanCoordiante) override;
     void ReturnHome() override; //returns pinky to its home
     void ReturnOriginalState() override;//returns its image without returning to its home
-    virtual void UpdateShortestPath(QPair <int, int> PacmanCoordiante) override;
+
 
 
 };

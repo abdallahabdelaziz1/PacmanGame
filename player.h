@@ -46,6 +46,7 @@ public:
     void reset();                   //returns pacman to spawn
     void startanim();
     void endanim();
+    int getdir();                  //returns pacman direction (0->up, 1->down, 2->right, 3->left)
  private slots:
     void movemouth();
 };

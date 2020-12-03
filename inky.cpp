@@ -8,7 +8,8 @@ Inky::Inky(int ** temp):Ghosts(temp)
     sprite=sprite.scaledToWidth(blockDim);
     sprite=sprite.scaledToHeight(blockDim);
     setPixmap(sprite);
-   SETPOS(InitialRow, InitialColumn);
+    SETPOS(InitialRow, InitialColumn);
+    scatterPath = ShortestPathBFS(QPair<int, int>(TotalRows - 2, 1));
     //will add to the scene in gamemanager
 }
 
@@ -17,6 +18,7 @@ void Inky::ReturnHome()
 {
     ReturnOriginalState();
     SETPOS(InitialRow, InitialColumn);
+    scatterPath = ShortestPathBFS(QPair<int, int>(TotalRows - 2, 1));
 
 }
 
@@ -33,6 +35,8 @@ void Inky::ReturnOriginalState()
 void Inky::UpdateShortestPath(QPair<int, int> PacmanCoordiante)
 {
 
-    // you should determine where to go here and update hte shoortest path using the BFS function accordingly
+    shortestPath.clear();
+    shortestPath=ShortestPathBFS(PacmanCoordiante);
+    moveCounter=0;
 
 }

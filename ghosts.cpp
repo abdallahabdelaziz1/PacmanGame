@@ -27,15 +27,21 @@ int Ghosts::value=200;
 
 void Ghosts::FollowPaceman(QPair<int, int> PacmanCoordiante) //make the next move
 {
-       if(moveCounter==0){
-
+    Hit_Wall = false;          //resets ghousts hit wall state
+    Begin_Escape = false;
+    if(scatterPath.empty()){
+    if(moveCounter==0){
            UpdateShortestPath(PacmanCoordiante);
             GoToCell=shortestPath.top();
         }
       moveTo(determineDirection(GoToCell));
-
-
-
+}else{
+        if(moveCounter==0){
+                GoToCell=scatterPath.top();
+                scatterPath.pop();
+            }
+          moveTo(determineDirection(GoToCell));
+    }
 }
 
 void Ghosts::changestate()
@@ -49,9 +55,35 @@ void Ghosts::changestate()
 
 void Ghosts::escape()
 {
-   // some one should update the escape
-    moveRandomly();
 
+    if(moveCounter != 0 && !Begin_Escape){
+        moveTo(q);
+        if(moveCounter == 0)
+            Begin_Escape = true;
+    }
+    else{
+
+    //Not smooth
+       if(Hit_Wall){
+             moveRandomly();
+       }else{
+           if((boardData[row-1][column] < 0 && q==1) || (boardData[row][column-1] < 0 && q==2) || (boardData[row][column+1] < 0 && q==3) || (boardData[row+1][column] < 0 && q==0)){
+               //if pacman hit a wall move randomly
+               Hit_Wall = true;
+               moveRandomly();
+           }else{
+               //if it didn't hit a wall yet move opposite to the direction of the shortest path
+               if(q == 0)
+                   moveTo(1);
+               else if(q == 1)
+                   moveTo(0);
+               else if(q == 2)
+                   moveTo(3);
+               else if(q == 3)
+                   moveTo(2);
+           }
+       }
+    }
 }
 
 
@@ -198,21 +230,18 @@ void Ghosts::moveTo(int q) //implemented it to move to certain direction using A
 
 int Ghosts::determineDirection(QPair<int, int> GO) //implemented it to give me the direction we should go from my current position to the cell GO
 {
-    if(GO.first-row==-1)
-        return 0;//up
+    if(GO.first-row == -1 &&  GO.second == column)
+        return q = 0;//up
     if(GO.first-row==1)
-        return 1;//down
-
+        return q = 1;//down
     if(GO.second==1 && column==TotalColumns-2)
-        return 2;//right through portal
+        return q = 2;//right through portal
     if(GO.second==TotalColumns-2 && column==1)
-        return 3;//left through portal
-
+        return q = 3;//left through portal
     if(GO.second-column==1)
-        return 2;//right
-
+        return q = 2;//right
     if(GO.second-column==-1)
-        return 3;//left
+        return q = 3;//left
 
   //  return 0;
 
@@ -220,12 +249,27 @@ int Ghosts::determineDirection(QPair<int, int> GO) //implemented it to give me t
 
 void Ghosts::moveRandomly()
 {
-        if(moveCounter == 0){
-            q=qrand()%4;//at the beginning of the movement to a new block, radonmly select a direction
-            //0 : up, 1: won, 2: right, 3: left
-        }
-        moveTo(q);
+    bool Valid_Direction = true;
+    if((boardData[row+1][column] < 0 && q==1) || (boardData[row][column+1] < 0 && q==2) || (boardData[row][column-1] < 0 && q==3) || (boardData[row-1][column] < 0 && q==0))
+        Valid_Direction = false;
 
+    while(!Valid_Direction){
+        q = qrand() % 4;
+        if(q == 0){
+            if(boardData[row-1][column] > 0)
+                Valid_Direction = true;
+        }else if(q == 1){
+            if(boardData[row+1][column] > 0)
+                Valid_Direction = true;
+        }else if(q == 2){
+            if(boardData[row][column+1] > 0)
+                Valid_Direction = true;
+        }else if(q == 3){
+            if(boardData[row][column-1] > 0)
+                Valid_Direction = true;
+        }
+    }
+    moveTo(q);
 }
 
 

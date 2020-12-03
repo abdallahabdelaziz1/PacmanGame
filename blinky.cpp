@@ -7,7 +7,8 @@ Blinky::Blinky(int ** temp):Ghosts(temp)
     sprite=sprite.scaledToWidth(blockDim);
     sprite=sprite.scaledToHeight(blockDim);
     setPixmap(sprite);
-   SETPOS(InitialRow, InitialColumn);
+    SETPOS(InitialRow, InitialColumn);
+    scatterPath = ShortestPathBFS(QPair<int, int>(1, TotalColumns-2));
     //will add to the scene in gamemanager
 
 }
@@ -21,12 +22,11 @@ void Blinky::UpdateShortestPath(QPair<int, int> PacmanCoordiante)
 }
 
 
-
-
 void Blinky::ReturnHome()
 {
     ReturnOriginalState();
     SETPOS(InitialRow, InitialColumn);
+    scatterPath = ShortestPathBFS(QPair<int, int>(1, TotalColumns-2));
 
 }
 
