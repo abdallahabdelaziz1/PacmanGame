@@ -229,7 +229,7 @@ void Ghosts::moveTo(int q) { //implemented it to move to certain direction using
 
 int Ghosts::determineDirection(QPair<int, int> GO) //implemented it to give me the direction we should go from my current position to the cell GO
 {
-    if(GO.first-row == -1 &&  GO.second == column)
+    if(GO.first-row == -1)
         return q = 0;//up
     if(GO.first-row==1)
         return q = 1;//down

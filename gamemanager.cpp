@@ -54,12 +54,16 @@ GameManager::GameManager()
     gamestate = new text;
     currentscore = new score;
     pacstate = new state;
+
+
+
+    //initilizes music button, its size, icon, iconsize, style(wihtout border), and slot.
     music = new QPushButton();
     music->setGeometry(QRect(15*blockDim, 0, 1.2*blockDim, 1.2*blockDim));
     music->setIcon(QIcon("Sound.png"));
     music->setIconSize(QSize(1.2*blockDim, 1.2*blockDim));
     music->setStyleSheet("QPushButton{border: 0px solid;}");
-    connect(music, SIGNAL (clicked()),this, SLOT (on_music_clicked()));
+    connect(music, SIGNAL (clicked()),this, SLOT (on_music_clicked())); //connecting the slot to the button clicked event.
 
     scene->addItem(pacstate);
     scene->addItem(pacman);
@@ -229,7 +233,7 @@ void GameManager::advance(){
         scene->removeItem(&fruitInstance); //if the fruit hasn't been added it doesn't crash thankfullly.
     }else if(UneatenPellets==0){
         if(MusicWorks){
-         musicManager->playWin();
+            musicManager->playWin();
         }
         gamestate->won();
         scene->addItem(gamestate);
@@ -394,6 +398,7 @@ void GameManager::delayStart()
 
 void GameManager::on_music_clicked()
 {
+    //
     if(MusicWorks){
         music->setIcon(QIcon("NoSound.png"));
         music->setIconSize(QSize(1.2*blockDim, 1.2*blockDim));

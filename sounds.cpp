@@ -24,7 +24,7 @@ void Sounds::stopPlayer(){
 void Sounds::playMain(){
     mainPlaylist->setCurrentIndex(0);
     mainPlaylist->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
-    currentMedia->setVolume(50);
+    currentMedia->setVolume(30);
     currentMedia->play();
 }
 

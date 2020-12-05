@@ -28,7 +28,7 @@ class GameManager : public QGraphicsView
     Q_OBJECT
 private:
     board *boardInstance;
-    smallPellets smallPelletsarr[244]; //better be dynamic?
+    smallPellets smallPelletsarr[244];
     powerPellets powerPelletsarr[4];
     Sounds* musicManager;
     fruit fruitInstance;
@@ -57,9 +57,9 @@ private:
     bool MusicWorks = true;
 
 
-     void resetGame(bool win);
-     void fillPellets();
-     void StartAgain();
+    void resetGame(bool win);
+    void fillPellets();
+    void StartAgain();
 
 private slots:
     void keyPressEvent(QKeyEvent *event); //override()
