@@ -21,12 +21,6 @@ player::player(int** temp) {
     mouthanim = new QTimer(this);
     connect(mouthanim, SIGNAL(timeout()),this, SLOT(movemouth()));
 }
-int player::getRow() {
-    return row;
-}
-int player::getCol() {
-    return col;
-}
 
 QPair<int, int> player::getCoordinate()
 {
@@ -167,16 +161,7 @@ void player::changedir(char dir){
 
     }
 }
-void player::changestate(){
-    if (invencible == true)
-        invencible=false;
-    else
-        invencible = true;
-}
 
-bool player::isinvecible(){
-    return invencible;
-}
 
 void player::reset(){
     row = spawnrow;

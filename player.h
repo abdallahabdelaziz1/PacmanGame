@@ -22,7 +22,6 @@ private:
     int col=13;
     char direct = 'R';
     char tempDirect = 'R';
-    bool invencible=false;
     int blockDim = 20;
     int margin = 30;
     int speed = 2; //need to be a divisor of blockDim so that rowPerSpeed is an integer.
@@ -36,13 +35,9 @@ private:
     int frame = 0;
 public:
     player(int** temp);             //takes the game board as an argument
-    int getRow();                   //gets pacman position
-    int getCol();
     QPair<int, int> getCoordinate();
     void move();                    //updates pacman position accdording to the value of direct
     void changedir(char dir);       //changes direction and image. Takes 'U', 'D', 'R' or 'L' as an argument;
-    void changestate();             //changes between invencible and normal states
-    bool isinvecible();             //returns true if invencible //interchangable with ghoast state
     void reset();                   //returns pacman to spawn
     void startanim();
     void endanim();
