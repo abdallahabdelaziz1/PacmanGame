@@ -9,6 +9,6 @@ powerPellets::powerPellets() {
     value = 100;
 
 
-    // I have to setpixmap, setPos, addItemToScene will do the other two in game manager.
+    //  setpixmap, setPos, addItemToScene will be done in game manager (Fill pellets).
     setPixmap(sprite);
 }

@@ -11,8 +11,7 @@ private:
      const int InitialColumn=11;
 public:
     Blinky(int** temp);
-    //void FollowPaceman(QPair <int, int> PacmanCoordiante) override; //will be defined later
-    virtual void UpdateShortestPath(QPair <int, int> PacmanCoordiante) override;
+    virtual void UpdateShortestPath(QPair <int, int> PacmanCoordiante, int pacManDir=0) override;
     void ReturnHome() override; //returns blinky to its home
     void ReturnOriginalState() override;//returns its image without returning to its home
 

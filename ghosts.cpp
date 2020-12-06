@@ -22,16 +22,19 @@ Ghosts::Ghosts(int** temp)
 
 
 }
+
 //initializing the value
 int Ghosts::value=200;
 
-void Ghosts::FollowPaceman(QPair<int, int> PacmanCoordiante) //make the next move
+void Ghosts::FollowPaceman(QPair<int, int> PacmanCoordiante, int pacManDir) //make the next move
 {
-    Hit_Wall = false;          //resets ghosts hit wall state, when following pacman we reset hitwall
-    Begin_Escape = false;
+
+    Hit_Wall = false;           //resets ghosts hit wall state, when following pacman we reset hitwall
+    Begin_Escape = false;       //resets escape as well.
+
     if(scatterPath.empty()){
         if(moveCounter==0){
-            UpdateShortestPath(PacmanCoordiante);
+            UpdateShortestPath(PacmanCoordiante, pacManDir);
             GoToCell=shortestPath.top();
         }
         moveTo(determineDirection(GoToCell));
@@ -102,9 +105,11 @@ void Ghosts::SETPOS(int r, int c)
 QStack<QPair<int, int>> Ghosts::ShortestPathBFS(QPair<int, int> PacmanCoordiante)// returns the shortest path as stack
 {
 
-    QQueue<QPair<int, int>> q;
+    QStack<QPair<int, int>> path;// path to be returned
+
+    QQueue<QPair<int, int>> q;// queue to use in BFS
     q.push_back(qMakePair(row, column));
-    QStack<QPair<int, int>> path;
+
 
     if(PacmanCoordiante.first==row && PacmanCoordiante.second==column ){
         path.push(PacmanCoordiante);
@@ -113,35 +118,36 @@ QStack<QPair<int, int>> Ghosts::ShortestPathBFS(QPair<int, int> PacmanCoordiante
 
 
     bool visited[TotalRows][TotalColumns];
-    memset(visited, 0, sizeof(visited));
+    memset(visited, 0, sizeof(visited));//initialize visited by false
 
-    QMap<QPair<int, int>, QPair<int, int> > prev;
+    QMap<QPair<int, int>, QPair<int, int> > prev;// map maps the child (key) to its parent (value) (we will construct the path using it)
 
     QPair<int, int> parent, child, inital;
+    inital.first=row, inital.second=column;//intial is the source positions
 
-    visited[row][column]=1;
-    inital.first=row, inital.second=column;
+    visited[row][column]=1;// making the source visited
+
 
     while(!q.empty()){
-        parent= q.front();
+        parent= q.front();//first in the queue
         q.pop_front();
         int x=parent.first, y=parent.second;
 
-        if(boardData[x-1][y]>0 && !visited[x-1][y]){
+        if(boardData[x-1][y]>0 && !visited[x-1][y]){//child above it
             visited[x-1][y]=1;
             child.first=x-1; child.second=y;
             prev[child]=parent;
             q.push_back(child);
         }
-        if(boardData[x+1][y]>0 && !visited[x+1][y]){
+        if(boardData[x+1][y]>0 && !visited[x+1][y]){//child below it
             visited[x+1][y]=1;
             child.first=x+1; child.second=y;
             prev[child]=parent;
             q.push_back(child);
         }
-        if(boardData[x][y+1]>0){
-           if(y+1==TotalColumns-1){// y== totalCOlumn-2;
-               y=0; // go to x 1
+        if(boardData[x][y+1]>0){//right
+           if(y+1==TotalColumns-1){// y== totalCOlumn-2;  //handling portal to the righ
+               y=0;
            }
 
            if(!visited[x][y+1]){
@@ -152,8 +158,8 @@ QStack<QPair<int, int>> Ghosts::ShortestPathBFS(QPair<int, int> PacmanCoordiante
            }
             y=parent.second;
         }
-        if(boardData[x][y-1]>0){
-            if(y==1){
+        if(boardData[x][y-1]>0){//left
+            if(y==1){ //handling portal to the left
                 y=TotalColumns-1;
             }
             if(!visited[x][y-1]){
@@ -164,18 +170,21 @@ QStack<QPair<int, int>> Ghosts::ShortestPathBFS(QPair<int, int> PacmanCoordiante
             }
             y=parent.second;
         }
-        if(visited[PacmanCoordiante.first][PacmanCoordiante.second])
+
+        if(visited[PacmanCoordiante.first][PacmanCoordiante.second])//we reached the destination
             break;
     }
 
-
+    //constucting the path
     QPair<int, int> current=PacmanCoordiante;
     while(current!=inital){
         path.push(current);
         current=prev[current];
     }
-  //  path.push(inital);
     return path;
+
+    //Now the top cell in the stack is the cell that the ghost will visit in the next move (ghost first step)
+    //and the bottom cell is the destiantion
 
 }
 
@@ -272,21 +281,6 @@ void Ghosts::moveRandomly()
 }
 
 
-/*
-
-    else if(q==3 && (column-1==-1 || boardData[row][column-1]>0)){
-
-        if(moveCounter > rowsPerSpeed){
-            moveCounter = 0;
-            column--;//left
-            if(column==0)//handling portal
-                column=TotalColumns-2;
-        }
-        setPos( (blockDim*column+margin) - speed*moveCounter, (blockDim*row+margin)  );
-
-    }
-
-*/
 
 void Ghosts::SetValue()
 {

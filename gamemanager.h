@@ -5,7 +5,6 @@
 #include<QGraphicsView>
 #include <QTimer>
 #include <QKeyEvent>
-//#include <QtDebug>
 #include "board.h"
 #include "smallpellets.h"
 #include "powerpellets.h"

@@ -9,11 +9,10 @@ private:
      const int InitialColumn=13;
 public:
     Inky(int** temp);
-  //  void FollowPaceman() override; //will be defined later
     void ReturnHome() override; //returns inky to its home
     void ReturnOriginalState() override;//returns its image without returning to its home
-    virtual void UpdateShortestPath(QPair <int, int> PacmanCoordiante) override;
-    void FollowPaceman(QPair<int, int> PacmanCoordiante, int pacManDir);
+    virtual void UpdateShortestPath(QPair <int, int> PacmanCoordiante, int pacManDir) override;
+
 
 };
 

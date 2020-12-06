@@ -196,8 +196,10 @@ int player::getdir()
         return 1;
     if(tempDirect == 'R')
         return 2;
-    else
-        return 3;
+
+
+    return 3;
+
 }
 
 void player::movemouth()

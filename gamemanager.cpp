@@ -18,11 +18,14 @@ GameManager::GameManager()
     timer=new QTimer(this);
     connect(timer, SIGNAL(timeout()),this, SLOT(advance()));
 
-    timerGhostState=new QTimer(this);
-    connect(timerGhostState, SIGNAL(timeout()),this, SLOT(ghostStateTimeout()));
-
     timerFruit=new QTimer(this);
     connect(timerFruit, SIGNAL(timeout()),this, SLOT(createFruit()));
+
+
+
+    timerGhostState=new QTimer(this);
+    connect(timerGhostState, SIGNAL(timeout()),this, SLOT(ghostStateTimeout()));
+    timerGhostState->setSingleShot(true);
 
     delay = new QTimer(this);
     connect(delay, SIGNAL(timeout()), this, SLOT(delayStart()));
@@ -285,7 +288,6 @@ void GameManager::ghostStateTimeout(){
 
     Ghosts::SetValue(); //resets ghost value after timer of power pellet timer runs out
     pacstate->normalstate(); //returns pacman state to original, used for text
-    timerGhostState->stop(); //stops powerpellet timer.
 }
 
 
