@@ -2,8 +2,6 @@
 
 state::state()
 {
-    QFont arcade("Emulogic", 12);
-    setFont(arcade);
     display = "Normal";
     setPlainText(display);
     setPos(450, 0);

@@ -1,15 +1,13 @@
 #ifndef LIVES_H
 #define LIVES_H
 
-#include <QObject>
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 #include <QGraphicsScene>
 #include <QStack>
 
-class lives : public QObject
+class lives
 {
-    Q_OBJECT
 private:
     const int NumOfLives = 3;
     int CurNumOfLives = NumOfLives;

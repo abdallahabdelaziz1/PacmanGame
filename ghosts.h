@@ -13,9 +13,9 @@
 
 #include "board.h"
 
-class Ghosts: public QObject, public QGraphicsPixmapItem
+class Ghosts: public QGraphicsPixmapItem
 {
-    Q_OBJECT
+
 public:
     Ghosts(int** temp);//constructor takes a pointer to 2D array to fill board data
     virtual void FollowPaceman(QPair<int, int> PacmanCoordiante, int pacManDir=0); //function that determines the moves of the ghost. Now, random. Will be overrided in the next milestone

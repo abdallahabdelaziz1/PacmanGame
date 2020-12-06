@@ -25,6 +25,8 @@
 class GameManager : public QGraphicsView
 {
     Q_OBJECT
+
+
 private:
     board *boardInstance;
     smallPellets smallPelletsarr[244];

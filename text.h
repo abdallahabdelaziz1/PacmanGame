@@ -10,6 +10,7 @@ class text : public QGraphicsTextItem
 {
     Q_OBJECT
 
+
 protected:
  //   QFont font; this should be removed Abdallah? Sah?
     QString display;
