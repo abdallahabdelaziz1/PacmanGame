@@ -18,7 +18,7 @@ class Ghosts: public QGraphicsPixmapItem
 
 public:
     Ghosts(int** temp);//constructor takes a pointer to 2D array to fill board data
-    virtual void FollowPaceman(QPair<int, int> PacmanCoordiante, int pacManDir=0); //function that determines the moves of the ghost. Now, random. Will be overrided in the next milestone
+    virtual void FollowPaceman(QPair<int, int> PacmanCoordiante, int pacManDir=0); //function that determines the moves of the ghost.
     virtual void ReturnHome()=0;  //pure virtual function that is overrided for each ghost to retur him to his original place
     void changestate(); //changes the image of the ghost to the scared ghost
     void escape(); // make him escape from the pacman

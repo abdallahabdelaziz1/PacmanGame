@@ -168,7 +168,8 @@ void GameManager::advance(){
             PinkyInstant->escape();
             BlinkyInstant->changestate();
             BlinkyInstant->escape();
-            timerGhostState->start(9000);
+            timerGhostState->start(9000);// they remain escaping for 9 seconds
+            //or until got eaten, whicever nearer ;)
 
         }else if(typeid(*collidedItems[i]) == typeid(Inky)){
 
@@ -178,10 +179,10 @@ void GameManager::advance(){
                 playerScore += Ghosts::GetValue();
                 Ghosts::DoubleValue();
             }else{
-                //ghost will attack, he will lose a live, game will reset,
+                //ghost is attacking
+                //pacman will lose a live, game will reset
                 remlives->loselife();
                 resetGame(0);
-
             }
 
 
@@ -212,10 +213,10 @@ void GameManager::advance(){
 
         }else if(typeid(*collidedItems[i]) == typeid(fruit)){
                 scene->removeItem(collidedItems[i]);
-                fruit::increaseCount();
+                fruit::increaseCount();//increase the count of fruit already appeared
                 playerScore += fruitInstance.getValue();
                 int tempT = (qrand()%5) + 14;
-                timerFruit->start(1000*tempT);
+                timerFruit->start(1000*tempT);//timer works randomly
         }
     }
 
@@ -226,14 +227,15 @@ void GameManager::advance(){
     //checks if the player won or lost every time advanced is called, it will display information win/los text only
     if(remlives->Died()){
         if(MusicWorks){
-             musicManager->playLose();
+             musicManager->playLose();//play the losing music
         }
-        gamestate->lost();
+        gamestate->lost();//show gameover; after 2 seconds, Again Y/N
         scene->addItem(gamestate);
         timer->stop();
         timerFruit->stop();
         pacman->endanim();
-        scene->removeItem(&fruitInstance); //if the fruit hasn't been added it doesn't crash thankfullly.
+        scene->removeItem(&fruitInstance);
+
     }else if(UneatenPellets==0){
         if(MusicWorks){
             musicManager->playWin();
@@ -249,22 +251,21 @@ void GameManager::advance(){
     else{
 
         if(InkyInstant->getAttackingState())
-            InkyInstant->FollowPaceman(pacman->getCoordinate(), pacman->getdir()); //just randomly for now
+            InkyInstant->FollowPaceman(pacman->getCoordinate(), pacman->getdir());
         else
-            InkyInstant->escape(); //just randomly for now
+            InkyInstant->escape();
 
         if(PinkyInstant->getAttackingState())
-            PinkyInstant->FollowPaceman(pacman->getCoordinate(), pacman->getdir()); //just randomly for now
+            PinkyInstant->FollowPaceman(pacman->getCoordinate(), pacman->getdir());
         else
-             PinkyInstant->escape(); //just randomly for now
+             PinkyInstant->escape();
 
         if(BlinkyInstant->getAttackingState())
             BlinkyInstant->FollowPaceman(pacman->getCoordinate());
         else
             BlinkyInstant->escape();
 
-
-        pacman->move();
+        pacman->move();// move pacman
     }
 
 

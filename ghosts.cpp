@@ -188,7 +188,7 @@ QStack<QPair<int, int>> Ghosts::ShortestPathBFS(QPair<int, int> PacmanCoordiante
 
 }
 
-void Ghosts::moveTo(int q) { //implemented it to move to certain direction using Abdo method in order for ghost to move smoothly
+void Ghosts::moveTo(int q) { //implemented it to move to certain direction
     moveCounter++;
 
     if(q==0 && boardData[row-1][column]>0){

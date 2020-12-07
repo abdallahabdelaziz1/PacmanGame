@@ -119,8 +119,6 @@ void player::changedir(char dir){
        }
 
 
-
-
     }else if (dir == 'D'){
 
         if (!(boardData[row+1][col]<0) ){
@@ -280,4 +278,6 @@ if(tempDirect == 'D'){
     pacman = pacman.scaledToWidth(blockDim);
     pacman = pacman.scaledToHeight(blockDim);
     setPixmap(pacman);
+    if(frame==6)
+        frame=0;
 }
